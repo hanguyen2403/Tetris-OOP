@@ -38,7 +38,7 @@ public class GameArea extends JPanel {
         drawBlock(g);
     }
         //Ve block
-        public void drawBlock(Graphics g){
+    public void drawBlock(Graphics g){
 
         int Row = block.getRow();
         int Column = block.getColumn();
@@ -54,7 +54,7 @@ public class GameArea extends JPanel {
                 }
             }
         }
-        }
+    }
         //Tao block aka spawnBlock
         public void spawnBlock(){
             block = new TetrisBlock(new int[][] { {0, 0, 0, 0},{1, 1, 1, 1},{0, 0, 0, 0},{0, 0, 0, 0} }, Color.blue);
