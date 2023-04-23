@@ -4,7 +4,7 @@ import Variables.Constant;
 
 import javax.swing.*;
 
-public class GameWindow extends JFrame{
+public class GameWindow extends JFrame implements Runnable{
     public GameWindow() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
@@ -18,4 +18,15 @@ public class GameWindow extends JFrame{
         setVisible(true);
     }
 
+    Thread gameThread;
+
+    public void startGameThread(){
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
+
+    @Override
+    public void run() {
+
+    }
 }
