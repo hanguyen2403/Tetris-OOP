@@ -23,8 +23,6 @@ public class GameWindow extends JFrame {
     public void startGameThread(){
         new GameThread().start();
     }
-
-
     //UPDATE
     public void Update(){
 

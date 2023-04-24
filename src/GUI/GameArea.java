@@ -17,7 +17,7 @@ public class GameArea extends JPanel {
         {0, 0, 0, 0}
     };*/
     public GameArea(){
-        this.setPreferredSize(new Dimension(Constant.WIDTH, Constant.HEIGHT));
+        this.setPreferredSize(new Dimension(Constant.WIDTH_BACKGROUND, Constant.HEIGHT_BACKGROUND));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
 
@@ -30,9 +30,12 @@ public class GameArea extends JPanel {
         //Ve background line cho khung tro choi
         for (int y = 0; y < Constant.MAX_SCREEN_ROW; y++) {
             for (int x = 0; x < Constant.MAX_SCREEN_COL; x++) {
+                //GrayPink
+                g.setColor(new Color(152, 128, 128));
+                g.fillRect(Constant.CENTER + x * Constant.GridCellSide, y * Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
                 //Gray
                 g.setColor(new Color(70, 70, 70));
-                g.drawRect(x * Constant.GridCellSide, y * Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
+                g.drawRect(Constant.CENTER + x * Constant.GridCellSide, y * Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
             }
         }
         drawBlock(g);
@@ -48,9 +51,9 @@ public class GameArea extends JPanel {
             for (int column = 0; column < Column; column++){
                 if (block.getShape()[row][column] == 1){
                     g.setColor(color);
-                    g.fillRect(Constant.Initial_X + column * Constant.GridCellSide, row * Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
+                    g.fillRect(Constant.CENTER + Constant.Initial_X + column * Constant.GridCellSide, row * Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
                     g.setColor(Color.BLACK);
-                    g.drawRect(Constant.Initial_X + column * Constant.GridCellSide, row * Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
+                    g.drawRect(Constant.CENTER + Constant.Initial_X + column * Constant.GridCellSide, row * Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
                 }
             }
         }
@@ -59,5 +62,7 @@ public class GameArea extends JPanel {
         public void spawnBlock(){
             block = new TetrisBlock(new int[][] { {0, 0, 0, 0},{1, 1, 1, 1},{0, 0, 0, 0},{0, 0, 0, 0} }, Color.blue);
         }
+        //moveBlockDown
+
 }
 
