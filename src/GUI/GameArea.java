@@ -23,6 +23,7 @@ public class GameArea extends JPanel {
 
         spawnBlock();
         block.getBlockImage();
+        block.getBlock = 1;
     }
 
     public void paintComponent(Graphics g) {
@@ -52,11 +53,11 @@ public class GameArea extends JPanel {
         for (int row = 0;row < Row; row++){
             for (int column = 0; column < Column; column++){
                 if (block.getShape()[row][column] == 1){
-                   // g2.drawImage(block.image, Constant.CENTER + block.getX() + column * Constant.GridCellSide, block.getY()* Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide, null);
-                       g2.setColor(color);
-                       g2.fillRect(Constant.CENTER + block.getX() + column * Constant.GridCellSide, block.getY()* Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
-                       g2.setColor(Color.BLACK);
-                       g2.drawRect(Constant.CENTER + block.getX() + column * Constant.GridCellSide, block.getY() * Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
+                    g2.drawImage(block.Image(), Constant.CENTER + block.getX() + column * Constant.GridCellSide, block.getY()* Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide, null);
+                   //    g2.setColor(color);
+                     //  g2.fillRect(Constant.CENTER + block.getX() + column * Constant.GridCellSide, block.getY()* Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
+                       //g2.setColor(Color.BLACK);
+                       //g2.drawRect(Constant.CENTER + block.getX() + column * Constant.GridCellSide, block.getY() * Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
                 }
             }
         }

@@ -19,6 +19,7 @@ public class TetrisBlock {
     private int x, y;
 
     public BufferedImage blockJ, blockL, blockI, blockO, blockZ, blockS, blockT;
+    public BufferedImage image;
 
     public TetrisBlock(int[][] shape, Color color) {
         this.shape = shape;
@@ -63,18 +64,21 @@ public class TetrisBlock {
     //Lay anh cho block, DANG FIX BUG
     public void getBlockImage(){
         try{
-            blockJ = ImageIO.read(getClass().getResourceAsStream("/block/J.png"));
-            blockI = ImageIO.read(getClass().getResourceAsStream("/block/I.png"));
-            blockL = ImageIO.read(getClass().getResourceAsStream("/block/L.png"));
-            blockO = ImageIO.read(getClass().getResourceAsStream("/block/O.png"));
-            blockS = ImageIO.read(getClass().getResourceAsStream("/block/S.png"));
-            blockZ = ImageIO.read(getClass().getResourceAsStream("/block/Z.png"));
-            blockT = ImageIO.read(getClass().getResourceAsStream("/block/red1.png"));
+            blockJ = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/block/J.png")));
+            blockI = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/block/I.png")));
+            blockL = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/block/L.png")));
+            blockO = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/block/O.png")));
+            blockS = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/block/S.png")));
+            blockZ = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/block/Z.png")));
+            blockT = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/block/red1.png")));
         }catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    public BufferedImage image = blockJ;
+    public BufferedImage Image(){
+        if (getBlock == 1) image = blockT;
+        return image;
+    }
 
 }
