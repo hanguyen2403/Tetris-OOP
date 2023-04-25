@@ -2,6 +2,8 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
+
+import Controls.CollisionCheck;
 import Variables.Constant;
 import Block.TetrisBlock;
 //gameAre aka gamePannel
@@ -23,7 +25,6 @@ public class GameArea extends JPanel {
 
         spawnBlock();
         block.getBlockImage();
-        block.getBlock = 1;
     }
 
     public void paintComponent(Graphics g) {
@@ -48,12 +49,15 @@ public class GameArea extends JPanel {
 
         int Row = block.getRow();
         int Column = block.getColumn();
-        Color color = block.getColor();
+        int[][] shape = block.getShape();
+       // Color color = block.getColor();
 
-        for (int row = 0;row < Row; row++){
+        for (int row = 0; row < Row; row++){
             for (int column = 0; column < Column; column++){
-                if (block.getShape()[row][column] == 1){
-                    g2.drawImage(block.Image(), Constant.CENTER + block.getX() + column * Constant.GridCellSide, block.getY()* Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide, null);
+                if (shape[row][column] == 1){
+                    int x = (block.getX() + column) * Constant.GridCellSide;
+                    int y = (block.getY() + row) * Constant.GridCellSide;
+                    g2.drawImage(block.Image(), Constant.CENTER + x, y, Constant.GridCellSide, Constant.GridCellSide, null);
                    //    g2.setColor(color);
                      //  g2.fillRect(Constant.CENTER + block.getX() + column * Constant.GridCellSide, block.getY()* Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
                        //g2.setColor(Color.BLACK);
@@ -64,10 +68,12 @@ public class GameArea extends JPanel {
     }
     //Tao block aka spawnBlock
     public void spawnBlock(){
-        block = new TetrisBlock(new int[][] { {0, 0, 0, 0},{1, 1, 1, 1},{0, 0, 0, 0},{0, 0, 0, 0} }, Color.blue);
+        block = new TetrisBlock(new int[][] { {1,0}, {1,0}, {1,1}}, 6);
+        block.Spawn();
     }
     //moveBlockDown
     public void moveBlockDown(){
+        if (CollisionCheck.checkBottom(block) == false) return;
         block.moveDown();
         repaint();
     }
