@@ -72,10 +72,11 @@ public class GameArea extends JPanel {
         block.Spawn();
     }
     //moveBlockDown
-    public void moveBlockDown(){
-        if (CollisionCheck.checkBottom(block) == false) return;
+    public boolean moveBlockDown(){
+        if (CollisionCheck.checkBottom(block) == false) return false;
         block.moveDown();
         repaint();
+        return true;
     }
 
 }
