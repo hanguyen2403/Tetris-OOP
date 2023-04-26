@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 
 public class TetrisBlock {
     private int[][] shape;
-   // private Color color;
+    // private Color color;
     //phan biet 7 block
     public int getBlock;
 

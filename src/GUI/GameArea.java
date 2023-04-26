@@ -2,6 +2,7 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 import Controls.CollisionCheck;
 import Variables.Constant;
@@ -22,9 +23,8 @@ public class GameArea extends JPanel {
         this.setPreferredSize(new Dimension(Constant.WIDTH_BACKGROUND, Constant.HEIGHT_BACKGROUND));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
-
         spawnBlock();
-        block.getBlockImage();
+
     }
 
     public void paintComponent(Graphics g) {
@@ -50,6 +50,7 @@ public class GameArea extends JPanel {
         int Row = block.getRow();
         int Column = block.getColumn();
         int[][] shape = block.getShape();
+        BufferedImage image = block.Image();
        // Color color = block.getColor();
 
         for (int row = 0; row < Row; row++){
@@ -57,7 +58,7 @@ public class GameArea extends JPanel {
                 if (shape[row][column] == 1){
                     int x = (block.getX() + column) * Constant.GridCellSide;
                     int y = (block.getY() + row) * Constant.GridCellSide;
-                    g2.drawImage(block.Image(), Constant.CENTER + x, y, Constant.GridCellSide, Constant.GridCellSide, null);
+                    g2.drawImage(image, Constant.CENTER + x, y, Constant.GridCellSide, Constant.GridCellSide, null);
                    //    g2.setColor(color);
                      //  g2.fillRect(Constant.CENTER + block.getX() + column * Constant.GridCellSide, block.getY()* Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
                        //g2.setColor(Color.BLACK);
@@ -69,6 +70,7 @@ public class GameArea extends JPanel {
     //Tao block aka spawnBlock
     public void spawnBlock(){
         block = new TetrisBlock(new int[][] { {1,0}, {1,0}, {1,1}}, 6);
+        block.getBlockImage();
         block.Spawn();
     }
     //moveBlockDown

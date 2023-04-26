@@ -11,7 +11,7 @@ public class GameThread extends Thread{
     @Override
     public void run() {
         while (true) {
-            gameArea.spawnBlock();
+               gameArea.spawnBlock();
             while (gameArea.moveBlockDown()) {
                 try {
                     Thread.sleep(1000);
