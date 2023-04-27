@@ -74,7 +74,7 @@ public class TetrisBlock {
             blockO = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/block/O.png")));
             blockS = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/block/S.png")));
             blockZ = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/block/Z.png")));
-            blockT = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/block/red1.png")));
+            blockT = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/block/T.png")));
         }catch (IOException e){
             e.printStackTrace();
         }
