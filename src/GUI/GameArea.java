@@ -22,12 +22,11 @@ public class GameArea extends JPanel {
           {0, 0, 0, 0}
       };*/
     public GameArea(){
-        background = new BufferedImage[Constant.HEIGHT_BACKGROUND][Constant.WIDTH_BACKGROUND];
         this.setPreferredSize(new Dimension(Constant.WIDTH_BACKGROUND, Constant.HEIGHT_BACKGROUND));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
-        spawnBlock();
-
+       // spawnBlock();
+        background = new BufferedImage[Constant.MAX_SCREEN_ROW][Constant.MAX_SCREEN_COL];
     }
 
     public void paintComponent(Graphics g) {
@@ -45,6 +44,8 @@ public class GameArea extends JPanel {
                 g2.drawRect(Constant.CENTER + x * Constant.GridCellSide, y * Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
             }
         }
+
+        drawBackground(g2);
         drawBlock(g2);
     }
     //Ve block
@@ -59,26 +60,26 @@ public class GameArea extends JPanel {
         for (int row = 0; row < Row; row++){
             for (int column = 0; column < Column; column++){
                 if (shape[row][column] == 1){
-                    int x = (block.getX() + column) * Constant.GridCellSide;
+                    int x = Constant.CENTER + (block.getX() + column) * Constant.GridCellSide;
                     int y = (block.getY() + row) * Constant.GridCellSide;
                     drawGridSquare(g2, image, x, y);
-                   //    g2.setColor(color);
-                     //  g2.fillRect(Constant.CENTER + block.getX() + column * Constant.GridCellSide, block.getY()* Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
-                       //g2.setColor(Color.BLACK);
-                       //g2.drawRect(Constant.CENTER + block.getX() + column * Constant.GridCellSide, block.getY() * Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
+                   //g2.setColor(color);
+                   //g2.fillRect(Constant.CENTER + block.getX() + column * Constant.GridCellSide, block.getY()* Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
+                   //g2.setColor(Color.BLACK);
+                   //g2.drawRect(Constant.CENTER + block.getX() + column * Constant.GridCellSide, block.getY() * Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
                 }
             }
         }
     }
 
     private void drawBackground (Graphics2D g2) {
-        BufferedImage image = block.Image();
+        BufferedImage image;
         for (int row = 0; row < Constant.MAX_SCREEN_ROW; row++) {
             for (int column = 0; column < Constant.MAX_SCREEN_COL; column++) {
                 image = background[row][column];
                 if (image != null){
-                    int x = (block.getX() + column) * Constant.GridCellSide;
-                    int y = (block.getY() + row) * Constant.GridCellSide;
+                    int x = Constant.CENTER + column * Constant.GridCellSide;
+                    int y = row * Constant.GridCellSide;
                     drawGridSquare(g2, image, x, y);
                 }
             }
@@ -86,7 +87,7 @@ public class GameArea extends JPanel {
     }
 
     private void drawGridSquare(Graphics2D g2, BufferedImage image, int x, int y) {
-        g2.drawImage(image, Constant.CENTER + x, y, Constant.GridCellSide, Constant.GridCellSide, null);
+        g2.drawImage(image, x, y, Constant.GridCellSide, Constant.GridCellSide, null);
     }
 
     //Tao block aka spawnBlock
@@ -108,17 +109,17 @@ public class GameArea extends JPanel {
 
     private void moveBlockToBackGround() {
         int[][] shape = block.getShape();
-        int height = block.getRow();
-        int width = block.getColumn();
+        int Row = block.getRow();
+        int Column = block.getColumn();
 
         int xPos = block.getX();;
         int yPos = block.getY();
 
         BufferedImage image = block.Image();
 
-        for (int row = 0; row < height; row++) {
-            for (int column = 0; column < width; column++) {
-                if (shape[row][column] == 1) {
+        for (int row = 0; row < Row; row++) {
+            for (int column = 0; column < Column; column++) {
+                if (shape[row][column] != 0) {
                     background[row + yPos][column + xPos] = image;
                 }
             }
