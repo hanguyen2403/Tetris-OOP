@@ -106,6 +106,30 @@ public class GameArea extends JPanel {
         repaint();
         return true;
     }
+    public void moveBlockLeft(){
+        block.moveLeft();
+        repaint();
+    }
+    public void moveBlockRight(){
+        block.moveRight();
+        repaint();
+    }
+    public void moveBlockDownFaster(){
+      //while (CollisionCheck.checkBottom(block) == true){
+        block.moveDown();
+        repaint();
+      //  }
+    }
+    public void dropBlock(){
+        while (CollisionCheck.checkBottom(block) == true) {
+            block.moveDown();
+        }
+        repaint();
+    }
+    public void RotateBlock(){
+        block.rotate();
+        repaint();
+    }
 
     private void moveBlockToBackGround() {
         int[][] shape = block.getShape();
@@ -123,7 +147,6 @@ public class GameArea extends JPanel {
                     background[row + yPos][column + xPos] = image;
                 }
             }
-
         }
     }
 

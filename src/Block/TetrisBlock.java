@@ -12,9 +12,12 @@ import javax.imageio.ImageIO;
 
 public class TetrisBlock {
     private int[][] shape;
+    private int[][][] shapes;
+    public int currentRotation;
     // private Color color;
     //phan biet 7 block
     public int getBlock;
+
 
     private int x, y;
 
@@ -24,6 +27,23 @@ public class TetrisBlock {
     public TetrisBlock(int[][] shape, int getBlock) {
         this.shape = shape;
         this.getBlock = getBlock;
+        initShapes();
+    }
+    public void initShapes(){
+        shapes = new int[4][][];
+        for (int i = 0; i < 4; i++){
+
+            int row = shape[0].length;
+            int column = shape.length;
+            shapes[i] = new int[row][column];
+
+            for(int y = 0; y < row; y++){
+                for (int x = 0; x < column; x++){
+                    shapes[i][y][x] = shape[column - x -1][y];
+                }
+            }
+            shape = shapes[i];
+        }
     }
 
     public int[][] getShape() {
@@ -50,6 +70,8 @@ public class TetrisBlock {
 
     //Spawn Block
     public void Spawn(){
+        currentRotation = 0;
+        shape = shapes[currentRotation];
         y = -getRow();
         x = (Constant.MAX_SCREEN_COL - getColumn()) / 2;
     }
@@ -57,13 +79,19 @@ public class TetrisBlock {
 
     //Move Block
     public void moveDown(){
-        if (y <= Constant.MAX_SCREEN_ROW) y++;
+        if (getY() + getRow() < Constant.MAX_SCREEN_ROW) y++;
     }
     public void moveRight(){
-        if (x <= Constant.MAX_SCREEN_COL) x++;
+        if (getX() + getColumn() < Constant.MAX_SCREEN_COL) x++;
     }
     public void moveLeft(){
-        if (x >= 0) x--;
+        if (getX() > 0) x--;
+    }
+
+    public void rotate(){
+        currentRotation++;
+        if (currentRotation > 3) currentRotation = 0;
+        shape = shapes[currentRotation];
     }
     //Lay anh cho block,
     public void getBlockImage(){
