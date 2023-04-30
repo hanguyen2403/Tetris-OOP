@@ -19,6 +19,12 @@ public class GameThread extends Thread{
                     Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, e);
                 }
             }
+            if(gameArea.isBlockOutOfBounds()) {
+                System.out.println("GAME OVER!");
+                break;
+            }
+            gameArea.moveBlockToBackground();
+            gameArea.clearLines();
         }
     }
 }

@@ -96,10 +96,20 @@ public class GameArea extends JPanel {
         block.getBlockImage();
         block.Spawn();
     }
+
+    //Check khi block day man hinh
+    public boolean isBlockOutOfBounds() {
+        if(block.getY() < 0) {
+            block = null;
+            return true;
+        }
+        return false;
+    }
+
     //moveBlockDown
     public boolean moveBlockDown(){
         if (CollisionCheck.checkBottom(block) == false) {
-            moveBlockToBackGround();
+            moveBlockToBackground();
             return false;
         }
         block.moveDown();
@@ -131,7 +141,41 @@ public class GameArea extends JPanel {
         repaint();
     }
 
-    private void moveBlockToBackGround() {
+    public void clearLines() {
+        boolean lineFilled;
+        for(int row = Constant.MAX_SCREEN_ROW - 1; row >= 0; row--) {
+            lineFilled = true;
+            for(int column = 0; column < Constant.MAX_SCREEN_COL; column++) {
+                if(background[row][column] == null) {
+                    lineFilled = false;
+                    break;
+                }
+            }
+            if(lineFilled) {
+                clearLine(row);
+                shiftDown(row);
+                clearLine(0);
+                row++;
+                repaint();
+            }
+        }
+    }
+
+    private void clearLine(int row) {
+        for(int i = 0; i < Constant.MAX_SCREEN_COL; i++) {
+            background[row][i] = null;
+        }
+    }
+
+    private void shiftDown(int row) {
+        for(int r = row; r > 0; r--) {
+            for(int c = 0; c < Constant.MAX_SCREEN_COL; c++) {
+                background[r][c] = background[r - 1][c];
+            }
+        }
+    }
+
+    public void moveBlockToBackground() {
         int[][] shape = block.getShape();
         int Row = block.getRow();
         int Column = block.getColumn();
@@ -143,7 +187,7 @@ public class GameArea extends JPanel {
 
         for (int row = 0; row < Row; row++) {
             for (int column = 0; column < Column; column++) {
-                if (shape[row][column] != 0) {
+                if (shape[row][column] == 1) {
                     background[row + yPos][column + xPos] = image;
                 }
             }
