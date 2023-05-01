@@ -62,13 +62,13 @@ public class GameWindow extends JFrame {
                 gameArea.moveBlockDownFaster();
             }
         });
-
         actionMap.put("up", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gameArea.RotateBlock();
-            }
-        });
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    gameArea.RotateBlock();
+                }
+            });
+
 
         actionMap.put("space", new AbstractAction() {
             @Override

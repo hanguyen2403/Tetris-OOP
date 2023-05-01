@@ -29,6 +29,7 @@ public class TetrisBlock {
         this.getBlock = getBlock;
         initShapes();
     }
+    //Xoay block
     public void initShapes(){
         shapes = new int[4][][];
         for (int i = 0; i < 4; i++){
@@ -120,6 +121,12 @@ public class TetrisBlock {
 
     public int getBottomEdge(){
        return getY() + getRow();
+    }
+    public int getLeftEdge(){
+        return getX();
+    }
+    public int getRightEdge(){
+        return getX() + getColumn();
     }
 
 }

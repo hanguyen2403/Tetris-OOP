@@ -9,7 +9,7 @@ import Variables.Constant;
 import Block.TetrisBlock;
 //gameAre aka gamePannel
 public class GameArea extends JPanel {
-    private BufferedImage[][] background;
+    public static BufferedImage[][] background;
 
     //bien block tu pack Block
     public TetrisBlock block;
@@ -117,15 +117,17 @@ public class GameArea extends JPanel {
         return true;
     }
     public void moveBlockLeft(){
+        if (CollisionCheck.checkLeft(block) == false) return;
         block.moveLeft();
         repaint();
     }
     public void moveBlockRight(){
+        if (CollisionCheck.checkRight(block) == false) return;
         block.moveRight();
         repaint();
     }
     public void moveBlockDownFaster(){
-      //while (CollisionCheck.checkBottom(block) == true){
+        if (CollisionCheck.checkBottom(block) == false) return;
         block.moveDown();
         repaint();
       //  }
@@ -137,6 +139,7 @@ public class GameArea extends JPanel {
         repaint();
     }
     public void RotateBlock(){
+        if (CollisionCheck.checkBottom(block) == false) return;
         block.rotate();
         repaint();
     }
@@ -187,7 +190,7 @@ public class GameArea extends JPanel {
 
         for (int row = 0; row < Row; row++) {
             for (int column = 0; column < Column; column++) {
-                if (shape[row][column] == 1) {
+                if (shape[row][column] != 0) {
                     background[row + yPos][column + xPos] = image;
                 }
             }
