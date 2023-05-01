@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImagingOpException;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Random;
 
 import Variables.Constant;
 
@@ -71,6 +72,9 @@ public class TetrisBlock {
 
     //Spawn Block
     public void Spawn(){
+
+        Random random = new Random();
+
         currentRotation = 0;
         shape = shapes[currentRotation];
         y = -getRow();

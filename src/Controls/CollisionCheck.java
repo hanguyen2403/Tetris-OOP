@@ -29,7 +29,7 @@ public class CollisionCheck {
         if (block.getLeftEdge() == 0) {
             return false;
         }
-
+//Logic Bug
         int[][] shape = block.getShape();
         int Column = block.getColumn();
         int Row = block.getRow();
@@ -51,14 +51,14 @@ public class CollisionCheck {
         if (block.getRightEdge() == Constant.MAX_SCREEN_COL) {
             return false;
         }
-
+//Logic Bug
         int[][] shape = block.getShape();
         int Column = block.getColumn();
         int Row = block.getRow();
         for (int row = 0; row < Row; row++ ){
             for (int column = Column-1; column >= 0; column--){
                 if (shape[row][column] != 0){
-                    int x = column + block.getX() -1;
+                    int x = column + block.getX() + 1;
                     int y = row + block.getY();
                     if (y < 0) break;
                     if(GameArea.background[y][x] != null) return false;

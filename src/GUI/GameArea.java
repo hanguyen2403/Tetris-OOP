@@ -14,18 +14,13 @@ public class GameArea extends JPanel {
     //bien block tu pack Block
     public TetrisBlock block;
 
+    public boolean checkDrop = false;
 
-    /*  public int[][] block1 = {
-          {0, 0, 0, 0},
-          {1, 1, 1, 1},
-          {0, 0, 0, 0},
-          {0, 0, 0, 0}
-      };*/
     public GameArea(){
         this.setPreferredSize(new Dimension(Constant.WIDTH_BACKGROUND, Constant.HEIGHT_BACKGROUND));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
-       // spawnBlock();
+        spawnBlock();
         background = new BufferedImage[Constant.MAX_SCREEN_ROW][Constant.MAX_SCREEN_COL];
     }
 
@@ -108,34 +103,42 @@ public class GameArea extends JPanel {
 
     //moveBlockDown
     public boolean moveBlockDown(){
+      //  if (block == null) return ;
         if (CollisionCheck.checkBottom(block) == false) {
-            moveBlockToBackground();
             return false;
         }
         block.moveDown();
+        checkDrop = false;
         repaint();
         return true;
     }
     public void moveBlockLeft(){
+        if (block == null) return;
         if (CollisionCheck.checkLeft(block) == false) return;
+        if (checkDrop) return;
         block.moveLeft();
         repaint();
     }
     public void moveBlockRight(){
+        if (block == null) return;
         if (CollisionCheck.checkRight(block) == false) return;
+        if (checkDrop) return;
         block.moveRight();
         repaint();
     }
     public void moveBlockDownFaster(){
+        if (block == null) return;
         if (CollisionCheck.checkBottom(block) == false) return;
         block.moveDown();
         repaint();
       //  }
     }
     public void dropBlock(){
+        if (block == null) return;
         while (CollisionCheck.checkBottom(block) == true) {
             block.moveDown();
         }
+        checkDrop = true;
         repaint();
     }
     public void RotateBlock(){
@@ -144,8 +147,9 @@ public class GameArea extends JPanel {
         repaint();
     }
 
-    public void clearLines() {
+    public int clearLines() {
         boolean lineFilled;
+        int lineCleared = 0;
         for(int row = Constant.MAX_SCREEN_ROW - 1; row >= 0; row--) {
             lineFilled = true;
             for(int column = 0; column < Constant.MAX_SCREEN_COL; column++) {
@@ -155,6 +159,7 @@ public class GameArea extends JPanel {
                 }
             }
             if(lineFilled) {
+                lineCleared ++;
                 clearLine(row);
                 shiftDown(row);
                 clearLine(0);
@@ -162,6 +167,7 @@ public class GameArea extends JPanel {
                 repaint();
             }
         }
+        return lineCleared;
     }
 
     private void clearLine(int row) {

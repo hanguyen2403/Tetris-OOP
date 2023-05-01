@@ -4,6 +4,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 public class GameThread extends Thread{
     private GameArea gameArea;
+    public int score;
+
+    public int goal;
+
+    public int level;
 
     public GameThread (GameArea gameArea){
         this.gameArea = gameArea;
@@ -24,7 +29,7 @@ public class GameThread extends Thread{
                 break;
             }
             gameArea.moveBlockToBackground();
-            gameArea.clearLines();
+            score += 10*gameArea.clearLines();
         }
     }
 }
