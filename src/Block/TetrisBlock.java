@@ -19,13 +19,12 @@ public class TetrisBlock {
     //phan biet 7 block
     public int getBlock;
 
-
     private int x, y;
 
     public BufferedImage blockJ, blockL, blockI, blockO, blockZ, blockS, blockT;
     public BufferedImage image;
 
-    public TetrisBlock(int[][] shape, int getBlock) {
+        public TetrisBlock(int[][] shape, int getBlock) {
         this.shape = shape;
         this.getBlock = getBlock;
         initShapes();
@@ -66,9 +65,13 @@ public class TetrisBlock {
         return x;
     }
 
+    public void setX(int newX) {x = newX;}
+
     public int getY() {
         return y;
     }
+
+    public void setY(int newY) {y = newY;}
 
     //Spawn Block
     public void Spawn(){
