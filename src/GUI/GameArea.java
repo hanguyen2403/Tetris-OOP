@@ -3,16 +3,19 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
+import Block.*;
 import Controls.CollisionCheck;
 import Variables.Constant;
-import Block.TetrisBlock;
+
 //gameAre aka gamePannel
 public class GameArea extends JPanel {
     public static BufferedImage[][] background;
 
     //bien block tu pack Block
     public TetrisBlock block;
+    public TetrisBlock[] blocks;
 
     public boolean checkDrop = false;
 
@@ -20,6 +23,8 @@ public class GameArea extends JPanel {
         this.setPreferredSize(new Dimension(Constant.WIDTH_BACKGROUND, Constant.HEIGHT_BACKGROUND));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
+        blocks = new TetrisBlock[]{ new OBlock(), new LBlock(), new IBlock(), new ZBlock(),
+                                    new JBlock(), new JBlock(), new SBlock()};
         spawnBlock();
         background = new BufferedImage[Constant.MAX_SCREEN_ROW][Constant.MAX_SCREEN_COL];
     }
@@ -45,7 +50,6 @@ public class GameArea extends JPanel {
     }
     //Ve block
     public void drawBlock(Graphics2D g2){
-
         int Row = block.getRow();
         int Column = block.getColumn();
         int[][] shape = block.getShape();
@@ -87,7 +91,8 @@ public class GameArea extends JPanel {
 
     //Tao block aka spawnBlock
     public void spawnBlock(){
-        block = new TetrisBlock(new int[][] { {1,0}, {1,0}, {1,1}}, 6);
+        Random random = new Random();
+        block = blocks[random.nextInt(blocks.length)];
         block.getBlockImage();
         block.Spawn();
     }
@@ -142,8 +147,14 @@ public class GameArea extends JPanel {
         repaint();
     }
     public void RotateBlock(){
+        if (block == null) return;
         if (CollisionCheck.checkBottom(block) == false) return;
         block.rotate();
+
+        if(block.getLeftEdge() < 0) block.setX(0);
+        if(block.getRightEdge() >= Constant.MAX_SCREEN_COL) block.setX(Constant.MAX_SCREEN_COL - block.getColumn());
+        if(block.getBottomEdge() >= Constant.MAX_SCREEN_ROW) block.setY(Constant.MAX_SCREEN_ROW - block.getRow());
+
         repaint();
     }
 

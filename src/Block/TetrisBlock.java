@@ -70,10 +70,16 @@ public class TetrisBlock {
         return y;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     //Spawn Block
     public void Spawn(){
-
-        Random random = new Random();
 
         currentRotation = 0;
         shape = shapes[currentRotation];
