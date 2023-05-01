@@ -71,9 +71,9 @@ public class TetrisBlock {
     }
 
     //Spawn Block
-    public void Spawn(){
+ public void Spawn(){
         Random random = new Random();
-        currentRotation = random.nextInt(shapes.length);
+        currentRotation = 0;
         shape = shapes[currentRotation];
         y = -getRow();
         x = random.nextInt(Constant.MAX_SCREEN_COL - getColumn());
