@@ -3,10 +3,12 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
+import Block.*;
 import Controls.CollisionCheck;
 import Variables.Constant;
-import Block.TetrisBlock;
+
 //gameAre aka gamePannel
 public class GameArea extends JPanel {
     public static BufferedImage[][] background;
@@ -14,14 +16,20 @@ public class GameArea extends JPanel {
     //bien block tu pack Block
     public TetrisBlock block;
 
-    public boolean checkDrop = false;
-
+    private TetrisBlock[] blockShapes;
+    /*  public int[][] block1 = {
+          {0, 0, 0, 0},
+          {1, 1, 1, 1},
+          {0, 0, 0, 0},
+          {0, 0, 0, 0}
+      };*/
     public GameArea(){
         this.setPreferredSize(new Dimension(Constant.WIDTH_BACKGROUND, Constant.HEIGHT_BACKGROUND));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
-        spawnBlock();
+       // spawnBlock();
         background = new BufferedImage[Constant.MAX_SCREEN_ROW][Constant.MAX_SCREEN_COL];
+        blockShapes = new TetrisBlock[] {new IShape(), new JShape(), new SShape(), new TShape(), new LShape(), new OShape(), new ZShape()};
     }
 
     public void paintComponent(Graphics g) {
@@ -87,7 +95,8 @@ public class GameArea extends JPanel {
 
     //Tao block aka spawnBlock
     public void spawnBlock(){
-        block = new TetrisBlock(new int[][] { {1,0}, {1,0}, {1,1}}, 6);
+        Random random = new Random();
+        block = blockShapes[random.nextInt(blockShapes.length)];
         block.getBlockImage();
         block.Spawn();
     }
@@ -103,53 +112,47 @@ public class GameArea extends JPanel {
 
     //moveBlockDown
     public boolean moveBlockDown(){
-      //  if (block == null) return ;
         if (CollisionCheck.checkBottom(block) == false) {
+            moveBlockToBackground();
             return false;
         }
         block.moveDown();
-        checkDrop = false;
         repaint();
         return true;
     }
     public void moveBlockLeft(){
-        if (block == null) return;
         if (CollisionCheck.checkLeft(block) == false) return;
-        if (checkDrop) return;
         block.moveLeft();
         repaint();
     }
     public void moveBlockRight(){
-        if (block == null) return;
         if (CollisionCheck.checkRight(block) == false) return;
-        if (checkDrop) return;
         block.moveRight();
         repaint();
     }
     public void moveBlockDownFaster(){
-        if (block == null) return;
         if (CollisionCheck.checkBottom(block) == false) return;
         block.moveDown();
         repaint();
       //  }
     }
     public void dropBlock(){
-        if (block == null) return;
         while (CollisionCheck.checkBottom(block) == true) {
             block.moveDown();
         }
-        checkDrop = true;
         repaint();
     }
     public void RotateBlock(){
         if (CollisionCheck.checkBottom(block) == false) return;
         block.rotate();
+        if(block.getLeftEdge() < 0) block.setX(0);
+        if(block.getRightEdge() >= Constant.MAX_SCREEN_COL) block.setX(Constant.MAX_SCREEN_COL - block.getColumn());
+        if(block.getBottomEdge() >= Constant.MAX_SCREEN_ROW) block.setY(Constant.MAX_SCREEN_ROW - block.getRow());
         repaint();
     }
 
-    public int clearLines() {
+    public void clearLines() {
         boolean lineFilled;
-        int lineCleared = 0;
         for(int row = Constant.MAX_SCREEN_ROW - 1; row >= 0; row--) {
             lineFilled = true;
             for(int column = 0; column < Constant.MAX_SCREEN_COL; column++) {
@@ -159,7 +162,6 @@ public class GameArea extends JPanel {
                 }
             }
             if(lineFilled) {
-                lineCleared ++;
                 clearLine(row);
                 shiftDown(row);
                 clearLine(0);
@@ -167,7 +169,6 @@ public class GameArea extends JPanel {
                 repaint();
             }
         }
-        return lineCleared;
     }
 
     private void clearLine(int row) {
