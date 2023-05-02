@@ -17,6 +17,8 @@ public class GameArea extends JPanel {
     public TetrisBlock block;
     public TetrisBlock[] blocks;
 
+    public TetrisBlock holdBlock;
+
     public TetrisBlock[] arrayBlock = new TetrisBlock[4];
     public boolean checkDrop = false;
 
@@ -183,6 +185,21 @@ public class GameArea extends JPanel {
         if(block.getBottomEdge() >= Constant.MAX_SCREEN_ROW) block.setY(Constant.MAX_SCREEN_ROW - block.getRow());
 
         repaint();
+    }
+    public void ChangeBlock(){
+        if (holdBlock == null) {
+            holdBlock = block;
+            holdBlock.Spawn();
+            spawnBlock();
+            repaint();
+        } else {
+            TetrisBlock swap;
+            swap = block;
+            block = holdBlock;
+            holdBlock = swap;
+            holdBlock.Spawn();
+            repaint();
+        }
     }
 
     public int clearLines() {

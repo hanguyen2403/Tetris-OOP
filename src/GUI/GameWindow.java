@@ -4,6 +4,7 @@ import Variables.Constant;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 public class GameWindow extends JFrame {
     public GameArea gameArea;
@@ -37,6 +38,7 @@ public class GameWindow extends JFrame {
         inputMap.put(KeyStroke.getKeyStroke("UP"), "up");
         inputMap.put(KeyStroke.getKeyStroke("DOWN"), "down");
         inputMap.put(KeyStroke.getKeyStroke("SPACE"), "space");
+        inputMap.put(KeyStroke.getKeyStroke((char) KeyEvent.VK_C), "c");
 
      //   inputMap.put(KeyStroke.getKeyStroke(""));
 
@@ -48,14 +50,12 @@ public class GameWindow extends JFrame {
                 gameArea.moveBlockRight();
             }
         });
-
         actionMap.put("left", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gameArea.moveBlockLeft();
             }
         });
-
         actionMap.put("down", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -68,14 +68,19 @@ public class GameWindow extends JFrame {
                     gameArea.RotateBlock();
                 }
             });
-
-
         actionMap.put("space", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gameArea.dropBlock();
             }
         });
+        actionMap.put("c", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameArea.ChangeBlock();
+            }
+        });
+
 
 
     }
