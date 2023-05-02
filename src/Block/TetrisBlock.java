@@ -15,14 +15,22 @@ public class TetrisBlock {
     private int[][] shape;
     private int[][][] shapes;
     public int currentRotation;
-    // private Color color;
     //phan biet 7 block
     public int getBlock;
-
-
     private int x, y;
 
-    public BufferedImage blockJ, blockL, blockI, blockO, blockZ, blockS, blockT;
+    public int GetX(){
+        if (getBlock == 1) return 4;
+        if (getBlock == 4) return 2;
+        return 3;
+    }
+    public int GetY(){
+        if (getBlock == 1) return 1;
+        if (getBlock == 4) return 2;
+        return 2;
+    }
+
+    public BufferedImage blockJ, blockL, blockI, blockO, blockZ, blockS, blockT, fullJ, fullL, fullI, fullO, fullZ, fullS, fullT;
     public BufferedImage image;
 
     public TetrisBlock(int[][] shape, int getBlock) {
@@ -52,7 +60,7 @@ public class TetrisBlock {
         return shape;
     }
 
-  //  public Color getColor() {return color;}
+    //  public Color getColor() {return color;}
 
     public int getRow(){
         return getShape().length;
@@ -87,7 +95,6 @@ public class TetrisBlock {
         x = (Constant.MAX_SCREEN_COL - getColumn()) / 2;
     }
 
-
     //Move Block
     public void moveDown(){
         if (getY() + getRow() < Constant.MAX_SCREEN_ROW) y++;
@@ -114,6 +121,13 @@ public class TetrisBlock {
             blockS = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/block/S.png")));
             blockZ = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/block/Z.png")));
             blockT = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/block/T.png")));
+            fullJ = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/block/blockJ.png")));
+            fullI = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/block/blockI.png")));
+            fullL = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/block/blockL.png")));
+            fullO = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/block/blockO.png")));
+            fullS = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/block/blockS.png")));
+            fullZ = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/block/blockZ.png")));
+            fullT = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/block/blockT.png")));
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -129,8 +143,19 @@ public class TetrisBlock {
         return image;
     }
 
+    public BufferedImage Image1(){
+        if (getBlock == 1) image = fullI;
+        if (getBlock == 2) image = fullJ;
+        if (getBlock == 3) image = fullL;
+        if (getBlock == 4) image = fullO;
+        if (getBlock == 5) image = fullS;
+        if (getBlock == 6) image = fullT;
+        if (getBlock == 7) image = fullZ;
+        return image;
+    }
+
     public int getBottomEdge(){
-       return getY() + getRow();
+        return getY() + getRow();
     }
     public int getLeftEdge(){
         return getX();

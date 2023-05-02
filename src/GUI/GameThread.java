@@ -29,6 +29,7 @@ public class GameThread extends Thread{
                 break;
             }
             gameArea.moveBlockToBackground();
+//            gameArea.spawnNextBlock();
             score += 10*gameArea.clearLines();
         }
     }

@@ -17,6 +17,7 @@ public class GameArea extends JPanel {
     public TetrisBlock block;
     public TetrisBlock[] blocks;
 
+    public TetrisBlock[] arrayBlock = new TetrisBlock[4];
     public boolean checkDrop = false;
 
     public GameArea(){
@@ -24,7 +25,7 @@ public class GameArea extends JPanel {
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         blocks = new TetrisBlock[]{ new OBlock(), new LBlock(), new IBlock(), new ZBlock(),
-                                    new JBlock(), new JBlock(), new SBlock()};
+                                    new JBlock(), new TBlock(), new SBlock()};
         spawnBlock();
         background = new BufferedImage[Constant.MAX_SCREEN_ROW][Constant.MAX_SCREEN_COL];
     }
@@ -46,6 +47,7 @@ public class GameArea extends JPanel {
         }
 
         drawBackground(g2);
+//        showNextBlock(g2,64);
         drawBlock(g2);
     }
     //Ve block
@@ -62,10 +64,6 @@ public class GameArea extends JPanel {
                     int x = Constant.CENTER + (block.getX() + column) * Constant.GridCellSide;
                     int y = (block.getY() + row) * Constant.GridCellSide;
                     drawGridSquare(g2, image, x, y);
-                   //g2.setColor(color);
-                   //g2.fillRect(Constant.CENTER + block.getX() + column * Constant.GridCellSide, block.getY()* Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
-                   //g2.setColor(Color.BLACK);
-                   //g2.drawRect(Constant.CENTER + block.getX() + column * Constant.GridCellSide, block.getY() * Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
                 }
             }
         }
@@ -83,17 +81,47 @@ public class GameArea extends JPanel {
                 }
             }
         }
+        showNextBlock(g2, 64);
+
     }
 
     private void drawGridSquare(Graphics2D g2, BufferedImage image, int x, int y) {
         g2.drawImage(image, x, y, Constant.GridCellSide, Constant.GridCellSide, null);
     }
 
+    private void showfullBlock(Graphics2D g2, BufferedImage image, int x, int y, int width, int height) {
+        g2.drawImage(image, x, y, width, height, null);
+    }
+
     //Tao block aka spawnBlock
     public void spawnBlock(){
         Random random = new Random();
-        block = blocks[random.nextInt(blocks.length)];
+        if (arrayBlock[0] == null) {
+            arrayBlock[0] = blocks[random.nextInt(blocks.length)];
+            arrayBlock[1] = blocks[random.nextInt(blocks.length)];
+            arrayBlock[2] = blocks[random.nextInt(blocks.length)];
+            arrayBlock[3] = blocks[random.nextInt(blocks.length)];
+            block = arrayBlock[0];
+        } else {
+            arrayBlock[0] = arrayBlock[1];
+            arrayBlock[1] = arrayBlock[2];
+            arrayBlock[2] = arrayBlock[3];
+            arrayBlock[3] = blocks[random.nextInt(blocks.length)];
+            block = arrayBlock[0];
+        }
+//        if (arrayBlock[1] == null) {}
+//        if (arrayBlock[2] == null) {}
+//        if (arrayBlock[3] == null) {}
+
+//        block = arrayBlock[0];
+//        arrayBlock[0] = arrayBlock[1];
+//        arrayBlock[1] = arrayBlock[2];
+//        arrayBlock[2] = arrayBlock[3];
+//        arrayBlock[3] = blocks[random.nextInt(blocks.length)];
         block.getBlockImage();
+        arrayBlock[1].getBlockImage();
+        arrayBlock[2].getBlockImage();
+        arrayBlock[3].getBlockImage();
         block.Spawn();
     }
 
@@ -213,6 +241,12 @@ public class GameArea extends JPanel {
             }
         }
     }
-
+    public void showNextBlock(Graphics2D g2, int Y){
+        for (int i = 1; i < 4; i++){
+            BufferedImage image = arrayBlock[i].Image1();
+            g2.drawImage(image,Constant.SIDE_WIDTH, Y, Constant.GridCellSide * arrayBlock[i].GetX(), Constant.GridCellSide * arrayBlock[i].GetY(), null);
+            Y+= 96;
+        }
+    }
 }
 
