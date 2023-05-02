@@ -82,7 +82,6 @@ public class GameArea extends JPanel {
             }
         }
         showNextBlock(g2, 64);
-
     }
 
     private void drawGridSquare(Graphics2D g2, BufferedImage image, int x, int y) {
@@ -243,8 +242,12 @@ public class GameArea extends JPanel {
     }
     public void showNextBlock(Graphics2D g2, int Y){
         for (int i = 1; i < 4; i++){
+            int y;
             BufferedImage image = arrayBlock[i].Image1();
-            g2.drawImage(image,Constant.SIDE_WIDTH, Y, Constant.GridCellSide * arrayBlock[i].GetX(), Constant.GridCellSide * arrayBlock[i].GetY(), null);
+            if (arrayBlock[i].getBlock == 1) {y = Y + Constant.GridCellSide;} else {
+                y = Y;
+            }
+            g2.drawImage(image,Constant.SIDE_WIDTH, y, Constant.GridCellSide * arrayBlock[i].GetX(), Constant.GridCellSide * arrayBlock[i].GetY(), null);
             Y+= 96;
         }
     }
