@@ -18,12 +18,17 @@ public class GameArea extends JPanel {
     public TetrisBlock[] blocks;
 
     public TetrisBlock holdBlock;
+    public boolean gameover=false;
 
     public TetrisBlock[] arrayBlock = new TetrisBlock[4];
     public boolean checkDrop = false;
 
     public GameArea(){
-        this.setPreferredSize(new Dimension(Constant.WIDTH_BACKGROUND, Constant.HEIGHT_BACKGROUND));
+
+
+
+        this.setPreferredSize(new Dimension(960, 640));
+
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         blocks = new TetrisBlock[]{ new OBlock(), new LBlock(), new IBlock(), new ZBlock(),
@@ -34,8 +39,45 @@ public class GameArea extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
+//Draw hint
         Graphics2D g2 = (Graphics2D) g;
+        g2.setColor(Color.DARK_GRAY);
+        g2.fillRect(640+50, 384+20, 300-30, 150);
+
+
+        g2.setColor(Color.CYAN);
+        g2.drawRect(660,48,320-32-30,352-32);
+
+
+
+        g2.setColor(Color.WHITE);
+        g2.setFont(new Font("Arial", Font.BOLD, 16));
+        g2.drawString("Instruction for players:", 640+115, 400);
+        g2.setFont(new Font("Arial", Font.PLAIN, 14));
+        g2.setColor(Color.CYAN); // Light Red
+
+        g2.drawString(" → : Move right", 640+115, 420+20);
+        g2.drawString(" ← : Move left", 640+115, 440+20);
+        g2.drawString(" ↓ : Down faster", 640+115, 460+20);
+        g2.drawString(" ↑ : Rotate", 640+115, 480+20);
+        g2.drawString("Space: Block move faster", 640+115, 500+20);
+        g2.drawString("C: Change Block", 640+115, 520+20);
+
+        g2.setFont(new Font("Arial", Font.BOLD, 20));
+        g2.drawString("Next block ",672,32);
+
+
+        //show GameOVER
+        //Show stats
+        g2.setColor(Color.MAGENTA);
+        g2.drawRect(75,354,320-85,190);
+        g2.setFont(new Font("Arial", Font.BOLD, 36));
+        g2.drawString("Goal : "+GameThread.getGoal(),115,384);
+        g2.drawString("Level :",115,384+60);
+        g2.drawString("Score :"+GameThread.getScore(),115,384+60+60);
+
+
+
         //Ve background line cho khung tro choi
         for (int y = 0; y < Constant.MAX_SCREEN_ROW; y++) {
             for (int x = 0; x < Constant.MAX_SCREEN_COL; x++) {
@@ -48,9 +90,16 @@ public class GameArea extends JPanel {
             }
         }
 
+
+        if(GameThread.isGameover()){
+            g2.drawString("GAME OVER", getWidth() / 2 - 100, getHeight() / 2);
+            g2.drawString("Your score is "+GameThread.getScore(),getWidth()/2-100,getHeight()/2+50);
+        }
+
         drawBackground(g2);
-//        showNextBlock(g2,64);
+//      showNextBlock(g2,64);
         drawBlock(g2);
+
     }
     //Ve block
     public void drawBlock(Graphics2D g2){
@@ -266,6 +315,14 @@ public class GameArea extends JPanel {
             }
             g2.drawImage(image,Constant.SIDE_WIDTH, y, Constant.GridCellSide * arrayBlock[i].GetX(), Constant.GridCellSide * arrayBlock[i].GetY(), null);
             Y+= 96;
+        }
+    }
+
+    public void clear() {
+        for (int row = 0; row < Constant.MAX_SCREEN_ROW; row++) {
+            for (int column = 0; column < Constant.MAX_SCREEN_COL; column++) {
+                background[row][column] = null;
+            }
         }
     }
 }

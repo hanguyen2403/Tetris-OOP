@@ -40,6 +40,7 @@ public class GameWindow extends JFrame {
         inputMap.put(KeyStroke.getKeyStroke("SPACE"), "space");
         inputMap.put(KeyStroke.getKeyStroke((char) KeyEvent.VK_C), "c");
 
+
      //   inputMap.put(KeyStroke.getKeyStroke(""));
 
 
