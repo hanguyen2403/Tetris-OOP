@@ -12,34 +12,30 @@ public class GameThread extends Thread {
     private GameArea gameArea;
     private static int score;
     private static int goal = 100;
-    private int level;
+    private static int level=1;
     private static boolean gameover;
     private static volatile boolean paused = false;
 
     private JFrame gameAreaFrame;
-    private Object pauseLock;
+    private  boolean running;
+
+
 
     public GameThread(GameArea gameArea) {
         this.gameArea = gameArea;
 
         paused = false;
-        pauseLock = new Object();
+running=true;
 
         gameAreaFrame = (JFrame) SwingUtilities.getRoot(gameArea);
-        gameAreaFrame.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    togglePause();
-                }
-            }
-        });
+
+
         gameAreaFrame.setFocusable(true);
     }
 
     @Override
     public void run() {
-        while (true) {
+        while (running) {
             gameArea.spawnBlock();
             while (gameArea.moveBlockDown()) {
                 try {
@@ -61,6 +57,11 @@ public class GameThread extends Thread {
         if(isGameover()){
             showGameOverScreen();
         }
+        if(score>=goal){
+            level++;
+        }
+
+
     }
 
     public static int getScore() {
@@ -71,15 +72,7 @@ public class GameThread extends Thread {
         return gameover;
     }
 
-    public void togglePause() {
-        paused = !paused;
-        if (!paused) {
-            synchronized (pauseLock) {
-                pauseLock.notify();
-            }
-            gameAreaFrame.requestFocusInWindow();
-        }
-    }
+
 
     private void showGameOverScreen() {
         JFrame gameOverFrame = new JFrame("Game Over!");
@@ -100,6 +93,22 @@ public class GameThread extends Thread {
             @Override
             public void actionPerformed(ActionEvent e) {
                 score = 0;
+                level=getlevel();
+                switch (level){
+                    case 2:
+                        goal+=50;
+                        break;
+                    case 3:
+                        goal+=100;
+                        break;
+                    case 4:
+                        goal+=150;
+                        break;
+                    case 5:
+                        goal+=200;
+                        break;
+
+                }
                 gameover = false;
                 gameArea.clear();
                 gameOverFrame.dispose();
@@ -142,6 +151,9 @@ public class GameThread extends Thread {
 
     public static int getGoal() {
         return goal;
+    }
+    public static int getlevel(){
+        return  level;
     }
 
 }
