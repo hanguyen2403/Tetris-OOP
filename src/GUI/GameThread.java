@@ -82,7 +82,7 @@ public class GameThread extends Thread {
     }
 
     private void showGameOverScreen() {
-        JFrame gameOverFrame = new JFrame("Game Over");
+        JFrame gameOverFrame = new JFrame("Game Over!");
         gameOverFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         gameOverFrame.setSize(400, 300);
         gameOverFrame.getContentPane().setBackground(Color.BLACK);
