@@ -42,26 +42,26 @@ public class GameArea extends JPanel {
 //Draw hint
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.DARK_GRAY);
-        g2.fillRect(640+50, 384+20, 300-30, 150);
+        g2.fillRect(610+50, 384+20, 320-32-30, 150);
 
 
-        g2.setColor(Color.CYAN);
+        g2.setColor(Color.WHITE);
         g2.drawRect(660,48,320-32-30,352-32);
 
 
 
         g2.setColor(Color.WHITE);
         g2.setFont(new Font("Arial", Font.BOLD, 16));
-        g2.drawString("Instruction for players:", 640+115, 400);
+        g2.drawString("Instruction for players:", 610+100, 400);
         g2.setFont(new Font("Arial", Font.PLAIN, 14));
-        g2.setColor(Color.CYAN); // Light Red
+        g2.setColor(Color.WHITE); // Light Red
 
-        g2.drawString(" → : Move right", 640+115, 420+20);
-        g2.drawString(" ← : Move left", 640+115, 440+20);
-        g2.drawString(" ↓ : Down faster", 640+115, 460+20);
-        g2.drawString(" ↑ : Rotate", 640+115, 480+20);
-        g2.drawString("Space: Block move faster", 640+115, 500+20);
-        g2.drawString("C: Change Block", 640+115, 520+20);
+        g2.drawString(" → : Move right", 610+115, 420+20);
+        g2.drawString(" ← : Move left", 610+115, 440+20);
+        g2.drawString(" ↓ : Down faster", 610+115, 460+20);
+        g2.drawString(" ↑ : Rotate", 610+115, 480+20);
+        g2.drawString("Space: Block move faster", 610+115, 500+20);
+        g2.drawString("C: Change Block", 610+115, 520+20);
 
         g2.setFont(new Font("Arial", Font.BOLD, 20));
         g2.drawString("Next block ",672,32);
@@ -92,7 +92,7 @@ public class GameArea extends JPanel {
 
 
         if(GameThread.isGameover()){
-            g2.drawString("GAME OVER", getWidth() / 2 - 100, getHeight() / 2);
+            g2.drawString("GAME OVER!", getWidth() / 2 - 100, getHeight() / 2);
             g2.drawString("Your score is "+GameThread.getScore(),getWidth()/2-100,getHeight()/2+50);
         }
 
