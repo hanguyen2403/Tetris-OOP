@@ -5,6 +5,8 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GameThread extends Thread {
     private GameArea gameArea;
@@ -19,7 +21,7 @@ public class GameThread extends Thread {
 
     public GameThread(GameArea gameArea) {
         this.gameArea = gameArea;
-      
+
         paused = false;
         pauseLock = new Object();
 
@@ -38,30 +40,25 @@ public class GameThread extends Thread {
     @Override
     public void run() {
         while (true) {
-            if (!paused) {
-                gameArea.spawnBlock();
-                while (gameArea.moveBlockDown()) {
-                    try {
-                        Thread.sleep(300);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if (gameArea.isBlockOutOfBounds()) {
-                    gameover = true;
-                    break;
-                }
-                gameArea.moveBlockToBackground();
-                score += 10 * gameArea.clearLines();
-            } else {
+            gameArea.spawnBlock();
+            while (gameArea.moveBlockDown()) {
                 try {
-                    Thread.sleep(600);
+                    Thread.sleep(300);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, e);
                 }
             }
+            if(gameArea.isBlockOutOfBounds()) {
+                gameover=true;
+                break;
+            }
+            gameArea.moveBlockToBackground();
+//            gameArea.spawnNextBlock();
+
+            score += 10*gameArea.clearLines();
+
         }
-        if (isGameover()) {
+        if(isGameover()){
             showGameOverScreen();
         }
     }
@@ -86,7 +83,7 @@ public class GameThread extends Thread {
 
     private void showGameOverScreen() {
         JFrame gameOverFrame = new JFrame("Game Over");
-        gameOverFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gameOverFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         gameOverFrame.setSize(400, 300);
         gameOverFrame.getContentPane().setBackground(Color.BLACK);
         gameOverFrame.getContentPane().setLayout(new BorderLayout());
@@ -110,17 +107,38 @@ public class GameThread extends Thread {
                 gameThread.start();
             }
         });
+
+        JButton exitButton = new JButton("Exit");
+        exitButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.BLACK);
         buttonPanel.add(restartButton);
+        buttonPanel.add(exitButton);
         gameOverFrame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 
         int x = gameAreaFrame.getX() + (gameAreaFrame.getWidth() - gameOverFrame.getWidth()) / 2;
         int y = gameAreaFrame.getY() + (gameAreaFrame.getHeight() - gameOverFrame.getHeight()) / 2;
         gameOverFrame.setLocation(x, y);
 
+        gameOverFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
+
         gameOverFrame.setVisible(true);
     }
+
+    // Other methods and code
+
 
     public static int getGoal() {
         return goal;
