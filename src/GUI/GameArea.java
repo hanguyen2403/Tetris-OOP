@@ -40,9 +40,9 @@ public class GameArea extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 //Draw hint
-        Graphics2D g2 = (Graphics2D) g;
+      Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.DARK_GRAY);
-        g2.fillRect(610+50, 384+20, 320-32-30, 150);
+        g2.fillRect(610+50, 384+23, 320-32-30, 150);
 
 
         g2.setColor(Color.WHITE);
@@ -56,12 +56,12 @@ public class GameArea extends JPanel {
         g2.setFont(new Font("Arial", Font.PLAIN, 14));
         g2.setColor(Color.WHITE); // Light Red
 
-        g2.drawString(" → : Move right", 610+115, 420+20);
-        g2.drawString(" ← : Move left", 610+115, 440+20);
-        g2.drawString(" ↓ : Down faster", 610+115, 460+20);
-        g2.drawString(" ↑ : Rotate", 610+115, 480+20);
-        g2.drawString("Space: Block move faster", 610+115, 500+20);
-        g2.drawString("C: Change Block", 610+115, 520+20);
+        g2.drawString(" → : Move right", 610+65, 430);
+        g2.drawString(" ← : Move left", 610+65, 450);
+        g2.drawString(" ↓ : Down faster", 610+65, 470);
+        g2.drawString(" ↑ : Rotate", 610+65, 490);
+        g2.drawString("Space: Block move faster", 610+65, 510);
+        g2.drawString("C: Change Block", 610+65, 530);
 
         g2.setFont(new Font("Arial", Font.BOLD, 20));
         g2.drawString("Next block ",672,32);
