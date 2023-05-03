@@ -69,12 +69,12 @@ public class GameArea extends JPanel {
 
         //show GameOVER
         //Show stats
-        g2.setColor(Color.MAGENTA);
+          g2.setColor(Color.WHITE);
         g2.drawRect(75,354,320-85,190);
         g2.setFont(new Font("Arial", Font.BOLD, 36));
-        g2.drawString("Goal : "+GameThread.getGoal(),115,384);
-        g2.drawString("Level :",115,384+60);
-        g2.drawString("Score :"+GameThread.getScore(),115,384+60+60);
+        g2.drawString("Goal : "+GameThread.getGoal(),115,400);
+        g2.drawString("Level :",115,400+60);
+        g2.drawString("Score :"+GameThread.getScore(),115,400+60+60);
 
 
 
