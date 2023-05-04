@@ -5,16 +5,21 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class GameThread extends Thread {
     private GameArea gameArea;
     private static int score;
-    private static int goal = 100;
+    private static int goal = 50;
     private static int level=1;
     private static boolean gameover;
     private static volatile boolean paused = false;
+    public int speed=1000;
+    public boolean checkcontrast=false;
+    public static  boolean contrast=false;
 
     private JFrame gameAreaFrame;
     private  boolean running;
@@ -35,11 +40,13 @@ running=true;
 
     @Override
     public void run() {
-        while (running) {
+
+        while (true) {
+
             gameArea.spawnBlock();
             while (gameArea.moveBlockDown()) {
                 try {
-                    Thread.sleep(300);
+                    Thread.sleep(speed);
                 } catch (InterruptedException e) {
                     Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, e);
                 }
@@ -48,18 +55,40 @@ running=true;
                 gameover=true;
                 break;
             }
-            gameArea.moveBlockToBackground();
-//            gameArea.spawnNextBlock();
+            if(score==goal&&level<6){
+                gameover=true;
+                contrast=true;
+                checkcontrast=true;
+                if(gameover){
+                    showGameOverScreen();
+                }
+
+                break;
+
+            }else{
+                contrast=false;
+            }
+
+           gameArea.moveBlockToBackground();
+        //  gameArea.spawnNextBlock();
 
             score += 10*gameArea.clearLines();
 
+             increaseDifficulty();
         }
-        if(isGameover()){
-            showGameOverScreen();
-        }
-        if(score>=goal){
+
+        if(score>=goal) {
             level++;
         }
+        if(level==6){
+
+            level=1;
+        }
+
+        if(gameover==true&&checkcontrast==false){
+            showGameOverScreen();
+        }
+
 
 
     }
@@ -82,30 +111,31 @@ running=true;
         gameOverFrame.getContentPane().setLayout(new BorderLayout());
 
         JLabel gameOverLabel = new JLabel("Game Over");
-        gameOverLabel.setForeground(Color.WHITE);
-        gameOverLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        gameOverLabel.setForeground(Color.CYAN);
+        gameOverLabel.setFont(new Font("Arial", Font.BOLD, 48));
         gameOverLabel.setHorizontalAlignment(SwingConstants.CENTER);
         gameOverFrame.getContentPane().add(gameOverLabel, BorderLayout.CENTER);
 
-        JButton restartButton = new JButton("Restart");
+        JButton restartButton = new JButton("CLICK TO PLAY");
         restartButton.setFont(new Font("Arial", Font.PLAIN, 16));
         restartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 score = 0;
+
                 level=getlevel();
                 switch (level){
                     case 2:
-                        goal+=50;
+                        goal=100;
                         break;
                     case 3:
-                        goal+=100;
+                        goal=150;
                         break;
                     case 4:
-                        goal+=150;
+                        goal=200;
                         break;
                     case 5:
-                        goal+=200;
+                        goal=250;
                         break;
 
                 }
@@ -126,10 +156,21 @@ running=true;
             }
         });
 
+        //SAVE BUTTON
+        JButton saveButton = new JButton("Save Game");
+        saveButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveGame();
+            }
+        });
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.BLACK);
         buttonPanel.add(restartButton);
         buttonPanel.add(exitButton);
+        buttonPanel.add(saveButton);
         gameOverFrame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 
         int x = gameAreaFrame.getX() + (gameAreaFrame.getWidth() - gameOverFrame.getWidth()) / 2;
@@ -155,5 +196,42 @@ running=true;
     public static int getlevel(){
         return  level;
     }
+    public void increaseDifficulty() {
+        switch (level) {
+            case 2:
+                speed = 800;
+                break;
+            case 3:
+                speed = 600;
+                break;
+            case 4:
+                speed = 400;
+                break;
+            case 5:
+                speed = 200;
+                break;
+            // Add more cases for additional levels if needed
+
+        }
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    private void saveGame() {
+        int currentLevel = GameThread.getlevel();
+        try {
+            FileWriter writer = new FileWriter("saved_game.txt");
+            writer.write("Level: " + currentLevel + "\n");
+            writer.close();
+            JOptionPane.showMessageDialog(gameAreaFrame, "Game saved successfully!");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(gameAreaFrame, "Failed to save the game.");
+        }
+    }
+
+
 
 }

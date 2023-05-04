@@ -67,6 +67,7 @@ public class GameArea extends JPanel {
         g2.drawString("Next block ",672,32);
 
 
+
         //show GameOVER
         //Show stats
           g2.setColor(Color.WHITE);
@@ -90,11 +91,12 @@ public class GameArea extends JPanel {
             }
         }
 
+if(GameThread.contrast&&GameThread.getlevel()<=5&&GameThread.getlevel()-1!=0){
+    g2.setColor(Color.BLUE);
+    g2.setFont(new Font("Arial", Font.BOLD, 20));
+    g2.drawString("CONTRAST for your win at level:"+(GameThread.getlevel()-1),320,320);
+}
 
-        if(GameThread.isGameover()){
-            g2.drawString("GAME OVER!", getWidth() / 2 - 100, getHeight() / 2);
-            g2.drawString("Your score is "+GameThread.getScore(),getWidth()/2-100,getHeight()/2+50);
-        }
 
         drawBackground(g2);
 //      showNextBlock(g2,64);
@@ -173,6 +175,7 @@ public class GameArea extends JPanel {
         arrayBlock[2].getBlockImage();
         arrayBlock[3].getBlockImage();
         block.Spawn();
+
     }
 
     //Check khi block day man hinh
