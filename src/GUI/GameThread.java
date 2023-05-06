@@ -50,7 +50,7 @@ public class GameThread extends Thread {
 
             gameArea.moveBlockToBackground();
             score += 10 * gameArea.clearLines();
-         
+
             if (score >= goal&&level<5) {
                 showGameOverScreen();
                 break;

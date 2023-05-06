@@ -2,7 +2,6 @@ package GUI;
 
 import Controls.ExitMouseHandler;
 import Controls.MouseHandler;
-import Controls.PrintMouseHandler;
 import Controls.ResetMouse;
 
 import javax.imageio.ImageIO;

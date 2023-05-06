@@ -8,10 +8,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-public class PrintMouseHandler extends MouseHandler {
+public class Play extends MouseHandler {
     private JFrame frame;
 
-    public PrintMouseHandler(Rectangle area,JFrame frame) {
+    public Play(Rectangle area, JFrame frame) {
         super(area);
         this.frame = frame;
     }

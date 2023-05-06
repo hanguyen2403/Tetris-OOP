@@ -2,7 +2,7 @@ package GUI;
 
 import Controls.ExitMouseHandler;
 import Controls.MouseHandler;
-import Controls.PrintMouseHandler;
+import Controls.Play;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -28,7 +28,7 @@ public class TetrisGame extends JFrame {
             JLabel imageLabel = new JLabel(imageIcon);
             centterPanel.add(imageLabel);
 
-            MouseHandler mouseHandler = new PrintMouseHandler(new Rectangle(320 - 30, 400, 50, 50),this);
+            MouseHandler mouseHandler = new Play(new Rectangle(320 - 30, 400, 50, 50),this);
             MouseHandler exitMouseHandler = new ExitMouseHandler(new Rectangle(320-30, 480, 50, 50));
 
             centterPanel.addMouseListener(mouseHandler);
