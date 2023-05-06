@@ -51,9 +51,9 @@ public class GameArea extends JPanel {
 
 
         g2.setColor(Color.WHITE);
-        g2.setFont(new Font("Arial", Font.BOLD, 16));
+        g2.setFont(new Font("Monospaced", Font.PLAIN, 16));
         g2.drawString("Instruction for players:", 610+100, 400);
-        g2.setFont(new Font("Arial", Font.PLAIN, 14));
+        g2.setFont(new Font("Monospaced", Font.PLAIN, 14));
         g2.setColor(Color.WHITE); // Light Red
 
         g2.drawString(" → : Move right", 610+65, 430);
@@ -63,7 +63,7 @@ public class GameArea extends JPanel {
         g2.drawString("Space: Block move faster", 610+65, 510);
         g2.drawString("C: Change Block", 610+65, 530);
 
-        g2.setFont(new Font("Arial", Font.BOLD, 20));
+        g2.setFont(new Font("Monospaced", Font.PLAIN, 20));
         g2.drawString("Next block ",672,32);
 
 
@@ -72,9 +72,9 @@ public class GameArea extends JPanel {
         //Show stats
           g2.setColor(Color.WHITE);
         g2.drawRect(75,354,320-85,190);
-        g2.setFont(new Font("Arial", Font.BOLD, 36));
+        g2.setFont(new Font("Serif", Font.PLAIN, 31));
         g2.drawString("Goal : "+GameThread.getGoal(),115,400);
-        g2.drawString("Level :"+GameThread.getlevel(),115,400+60);
+        g2.drawString("Level :"+GameThread.getLevel(),115,400+60);
         g2.drawString("Score :"+GameThread.getScore(),115,400+60+60);
 
 
@@ -91,11 +91,7 @@ public class GameArea extends JPanel {
             }
         }
 
-if(GameThread.contrast&&GameThread.getlevel()<=5&&GameThread.getlevel()-1!=0){
-    g2.setColor(Color.BLUE);
-    g2.setFont(new Font("Arial", Font.BOLD, 20));
-    g2.drawString("CONTRAST for your win at level:"+(GameThread.getlevel()-1),320,320);
-}
+
 
 
         drawBackground(g2);

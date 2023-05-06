@@ -7,7 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class GameWindow extends JFrame {
-    public GameArea gameArea;
+    private GameArea gameArea;
+
     public GameWindow() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
@@ -23,27 +24,20 @@ public class GameWindow extends JFrame {
         initControls();
     }
 
-    //  Thread gameThread;
-
-    public void startGameThread(){
+    public void startGameThread() {
         new GameThread(gameArea).start();
     }
 
-    public void initControls(){
-        InputMap inputMap = this.getRootPane().getInputMap();
+    public void initControls() {
+        InputMap inputMap = this.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap actionMap = this.getRootPane().getActionMap();
 
-        inputMap.put(KeyStroke.getKeyStroke("RIGHT"), "right");
-        inputMap.put(KeyStroke.getKeyStroke("LEFT"), "left");
-        inputMap.put(KeyStroke.getKeyStroke("UP"), "up");
-        inputMap.put(KeyStroke.getKeyStroke("DOWN"), "down");
-        inputMap.put(KeyStroke.getKeyStroke("SPACE"), "space");
-        inputMap.put(KeyStroke.getKeyStroke((char) KeyEvent.VK_C), "c");
-
-
-     //   inputMap.put(KeyStroke.getKeyStroke(""));
-
-
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "right");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "left");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "down");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "up");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), "space");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_C, 0), "c");
 
         actionMap.put("right", new AbstractAction() {
             @Override
@@ -64,11 +58,11 @@ public class GameWindow extends JFrame {
             }
         });
         actionMap.put("up", new AbstractAction() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    gameArea.RotateBlock();
-                }
-            });
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameArea.RotateBlock();
+            }
+        });
         actionMap.put("space", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -82,9 +76,51 @@ public class GameWindow extends JFrame {
             }
         });
 
+        this.requestFocus();
+    }
+    public void startLoadedGameThread(int level) {
+        GameThread.setLevel(level);
+        int goal = 0;
+        int speed;
+        switch (level) {
+            case 2:
+                goal = 100;
+                speed=800;
+                break;
+            case 3:
+                goal = 150;
+                speed=600;
+                break;
+            case 4:
+                speed=600;
+                goal = 400;
+                break;
+            case 5:
+                speed=200;
+                goal = 250;
+                break;
+            default:
+                goal=50;
+                speed=1000;
+                break;
+        }
+        GameThread.setGoal(goal);
+        GameThread.speed=speed;
 
-
+        gameArea.requestFocus();
+       startGameThread();
     }
 
+    public void restart() {
+        GameThread.setLevel(1);
+        int goal = 50;
+        int speed=1000;
 
+
+        GameThread.setGoal(goal);
+        GameThread.speed=speed;
+        GameThread.setScore();
+        gameArea.requestFocus();
+        startGameThread();
+    }
 }
