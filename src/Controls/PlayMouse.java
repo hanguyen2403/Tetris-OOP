@@ -95,15 +95,5 @@ this.frame=jFrame;
         }
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Light Effect");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        PlayMouse panel = new PlayMouse( new Rectangle(320 - 30, 400, 150, 120),frame);
-        panel.setPreferredSize(new Dimension(960, 640));
-        frame.add(panel, BorderLayout.CENTER);
-
-        frame.pack();
-        frame.setVisible(true);
-    }
 }
