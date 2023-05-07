@@ -1,30 +1,28 @@
 package Controls;
 
 import GUI.GameWindow;
-
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.*;
 
-public class ResetMouse extends JPanel implements MouseListener, MouseMotionListener {
+public class PlayMouse extends JPanel implements MouseListener, MouseMotionListener {
     private BufferedImage backgroundImage;
     JFrame frame;
     private boolean isClicked;
     private Point mousePos = new Point(-1, -1);
     private Rectangle area;
 
-    public ResetMouse(Rectangle area,JFrame jFrame) {
+    public PlayMouse(Rectangle area,JFrame jFrame) {
         addMouseListener(this);
         addMouseMotionListener(this);
         this.area=area;
-        this.frame=jFrame;
+this.frame=jFrame;
         // Load the background image
         try {
-            backgroundImage = ImageIO.read(getClass().getResourceAsStream("/block/img.png"));
+            backgroundImage = ImageIO.read(getClass().getResourceAsStream("/block/Picture.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -38,18 +36,17 @@ public class ResetMouse extends JPanel implements MouseListener, MouseMotionList
         if (area.contains(e.getPoint())) {
             handleMouseEvent(e);
         }else{
-            System.exit(0);
+            System.exit(1);
         }
     }
     public void handleMouseEvent(MouseEvent e) {
-
         frame.dispose();
         startNewGame();
     }
     private void startNewGame() {
         try {
             GameWindow gameWindow = new GameWindow();
-            gameWindow.restart();
+            gameWindow.startGameThread();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -98,7 +95,15 @@ public class ResetMouse extends JPanel implements MouseListener, MouseMotionList
         }
     }
 
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Light Effect");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        PlayMouse panel = new PlayMouse( new Rectangle(320 - 30, 400, 150, 120),frame);
+        panel.setPreferredSize(new Dimension(960, 640));
+        frame.add(panel, BorderLayout.CENTER);
+
+        frame.pack();
+        frame.setVisible(true);
+    }
 }
-
-

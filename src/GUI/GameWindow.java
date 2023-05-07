@@ -26,6 +26,10 @@ public class GameWindow extends JFrame {
 
     public void startGameThread() {
         new GameThread(gameArea).start();
+        if(GameThread.level==6){
+            this.dispose();
+        }
+
     }
 
     public void initControls() {
@@ -80,7 +84,7 @@ public class GameWindow extends JFrame {
     }
     public void startLoadedGameThread(int level) {
         GameThread.setLevel(level);
-        int goal = 0;
+        int goal ;
         int speed;
         switch (level) {
             case 2:
@@ -114,13 +118,36 @@ public class GameWindow extends JFrame {
     public void restart() {
         GameThread.setLevel(1);
         int goal = 50;
-        int speed=1000;
-
+        int speed = 1000;
 
         GameThread.setGoal(goal);
-        GameThread.speed=speed;
+        GameThread.speed = speed;
         GameThread.setScore();
-        gameArea.requestFocus();
+
+        // Close the current game window
+        this.dispose();
+
+
+        // Remove the game area from the current game window
+        this.remove(gameArea);
+
+        // Create a new game area and add it to a new game window
+        gameArea = new GameArea();
+        this.add(gameArea);
+
+        // Pack the new game window and center it on the screen
+        pack();
+        setLocationRelativeTo(null);
+
+        // Start a new game thread
         startGameThread();
+        // Create a new game window and start a new game thread with level 1
+        GameWindow newGame = new GameWindow();
+        newGame.startLoadedGameThread(1);
+
+    }
+    public void closeWindow() {
+        // Dispose of the JFrame to close the window
+        dispose();
     }
 }

@@ -1,20 +1,14 @@
 package GUI;
-
-
-
 import Controls.ExistMouse;
 import Controls.ReplaygameMouse;
 import Controls.SaveMouse;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class GameOverFrame extends JFrame {
-    private JFrame gameOverFrame;
+
 
     GameArea gameArea;
     GameThread gameThread;

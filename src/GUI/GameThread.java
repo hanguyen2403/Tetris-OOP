@@ -50,37 +50,29 @@ public class GameThread extends Thread {
 
             gameArea.moveBlockToBackground();
             score += 10 * gameArea.clearLines();
-
             if (score >= goal&&level<5) {
                 showGameOverScreen();
                 break;
             } else if (score>=goal&&level==5) {
                 champion();
+                gameAreaFrame.dispose();
                 level=1;
                 break;
 
             }
-
-
         }
+
         if (score >= goal) {
             level++;
         }
-
-
-
         if ( gameover &&level<6) {
             showGameOverScreen();
         }
-
     }
 
     public static int getScore() {
         return score;
     }
-
-
-
     public static int getGoal() {
         return goal;
     }
@@ -110,9 +102,6 @@ public class GameThread extends Thread {
     public static void setLevel(int levels){
         level=levels;
     }
-
-
-
     private void showGameOverScreen() {
         GameOverFrame gameOverFrame = new GameOverFrame(gameArea,this);
         int x = gameAreaFrame.getX() + (gameAreaFrame.getWidth() - gameOverFrame.getWidth()) / 2;
@@ -121,9 +110,6 @@ public class GameThread extends Thread {
         gameOverFrame.setVisible(true);
     }
     public void champion(){
-        Champion championframe=new Champion();
+        Champion champion=new Champion();
     }
-
-
-
 }
