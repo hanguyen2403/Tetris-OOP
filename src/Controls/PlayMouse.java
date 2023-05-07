@@ -65,10 +65,12 @@ this.frame=jFrame;
     }
 
     public void mouseMoved(MouseEvent e) {
-        mousePos = e.getPoint();
-        repaint();
+        Point point = e.getPoint();
+        if (area.contains(point)) {
+            mousePos = point;
+            repaint();
+        }
     }
-
     public void mouseDragged(MouseEvent e) {
         mousePos = e.getPoint();
         repaint();
