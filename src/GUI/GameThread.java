@@ -39,7 +39,7 @@ public class GameThread extends Thread {
             while (gameArea.moveBlockDown()) {
                 try {
                     Thread.sleep(speed);
-                    System.out.println(speed);
+
                 } catch (InterruptedException e) {
                     Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, e);
                 }
@@ -51,7 +51,7 @@ public class GameThread extends Thread {
 
             gameArea.moveBlockToBackground();
             score += 10 * gameArea.clearLines();
-            score+=50 ;
+          
             if (score >= goal ) {
                 showGameOverScreen();
                 break;
