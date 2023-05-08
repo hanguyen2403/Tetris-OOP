@@ -11,20 +11,27 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class ResetMouse extends JPanel implements MouseListener, MouseMotionListener {
-    private BufferedImage backgroundImage;
+    private BufferedImage backgroundImage,playImage,exitImage;
     JFrame frame;
     private boolean isClicked;
     private Point mousePos = new Point(-1, -1);
-    private Rectangle area;
+    private Rectangle area,area2;
+    private int play,exit,state;
 
-    public ResetMouse(Rectangle area,JFrame jFrame) {
+    public ResetMouse(Rectangle area, Rectangle area2,JFrame jFrame) {
         addMouseListener(this);
         addMouseMotionListener(this);
         this.area=area;
         this.frame=jFrame;
+        this.area2=area2;
+        state=1;
+        play=2;
+        exit=3;
         // Load the background image
         try {
-            backgroundImage = ImageIO.read(getClass().getResourceAsStream("/block/img.png"));
+            backgroundImage = ImageIO.read(getClass().getResourceAsStream("/gameoverSeen/noclickbutton.jpg"));
+            playImage=ImageIO.read(getClass().getResourceAsStream("/gameoverSeen/clikPlayAgain.jpg"));
+            exitImage=ImageIO.read(getClass().getResourceAsStream("/gameoverSeen/clikExit.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -37,19 +44,19 @@ public class ResetMouse extends JPanel implements MouseListener, MouseMotionList
     public void mousePressed(MouseEvent e) {
         if (area.contains(e.getPoint())) {
             handleMouseEvent(e);
-        }else{
+        } else if (area2.contains(e.getPoint())) {
             System.exit(0);
+
         }
     }
     public void handleMouseEvent(MouseEvent e) {
-
         frame.dispose();
         startNewGame();
     }
     private void startNewGame() {
         try {
             GameWindow gameWindow = new GameWindow();
-            gameWindow.restart();
+            gameWindow.startGameThread();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,7 +77,13 @@ public class ResetMouse extends JPanel implements MouseListener, MouseMotionList
     public void mouseMoved(MouseEvent e) {
         Point point = e.getPoint();
         if (area.contains(point)) {
-            mousePos = point;
+            state=play;
+            repaint();
+        } else if (area2.contains(point)) {
+            state=exit;
+            repaint();
+        } else{
+            state=1;
             repaint();
         }
     }
@@ -83,24 +96,16 @@ public class ResetMouse extends JPanel implements MouseListener, MouseMotionList
         super.paintComponent(g);
 
         // Draw the background image
-        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-
-        // Draw the circle
-        int radius = 40;
-        int diameter = radius * 2;
-        int x = mousePos.x - radius;
-        int y = mousePos.y - radius;
-
-        if (isClicked) {
-            g.setColor(Color.CYAN);
-            g.fillOval(x, y, diameter, diameter);
-        } else {
-            g.setColor(new Color(255, 255, 200, 200));
-            g.fillOval(x, y, diameter, diameter);
+        if(state==1) {
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
+        if(state==play){
+            g.drawImage(playImage, 0, 0, getWidth(), getHeight(), this);
+        }
+        if(state==exit){
+            g.drawImage(exitImage, 0, 0, getWidth(), getHeight(), this);
         }
     }
 
 
 }
-
-

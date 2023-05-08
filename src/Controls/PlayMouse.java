@@ -9,20 +9,27 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class PlayMouse extends JPanel implements MouseListener, MouseMotionListener {
-    private BufferedImage backgroundImage;
+    private BufferedImage backgroundImage,playImage,exitImage;
     JFrame frame;
     private boolean isClicked;
     private Point mousePos = new Point(-1, -1);
-    private Rectangle area;
+    private Rectangle area,area2;
+    private int play,exit,state;
 
-    public PlayMouse(Rectangle area,JFrame jFrame) {
+    public PlayMouse(Rectangle area, Rectangle area2        ,JFrame jFrame) {
         addMouseListener(this);
         addMouseMotionListener(this);
         this.area=area;
-this.frame=jFrame;
+        this.frame=jFrame;
+        this.area2=area2;
+        state=1;
+        play=2;
+        exit=3;
         // Load the background image
         try {
-            backgroundImage = ImageIO.read(getClass().getResourceAsStream("/block/Picture.png"));
+            backgroundImage = ImageIO.read(getClass().getResourceAsStream("/Startscence/noclickbutton.jpg"));
+            playImage=ImageIO.read(getClass().getResourceAsStream("/Startscence/clickPlay.jpg"));
+            exitImage=ImageIO.read(getClass().getResourceAsStream("/Startscence/click Exit.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,8 +42,9 @@ this.frame=jFrame;
     public void mousePressed(MouseEvent e) {
         if (area.contains(e.getPoint())) {
             handleMouseEvent(e);
-        }else{
-            System.exit(1);
+        } else if (area2.contains(e.getPoint())) {
+            System.exit(0);
+
         }
     }
     public void handleMouseEvent(MouseEvent e) {
@@ -67,7 +75,13 @@ this.frame=jFrame;
     public void mouseMoved(MouseEvent e) {
         Point point = e.getPoint();
         if (area.contains(point)) {
-            mousePos = point;
+            state=play;
+            repaint();
+        } else if (area2.contains(point)) {
+            state=exit;
+            repaint();
+        } else{
+            state=1;
             repaint();
         }
     }
@@ -80,20 +94,14 @@ this.frame=jFrame;
         super.paintComponent(g);
 
         // Draw the background image
-        g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-
-        // Draw the circle
-        int radius = 40;
-        int diameter = radius * 2;
-        int x = mousePos.x - radius;
-        int y = mousePos.y - radius;
-
-        if (isClicked) {
-            g.setColor(Color.CYAN);
-            g.fillOval(x, y, diameter, diameter);
-        } else {
-            g.setColor(new Color(255, 255, 200, 200));
-            g.fillOval(x, y, diameter, diameter);
+        if(state==1) {
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
+        if(state==play){
+            g.drawImage(playImage, 0, 0, getWidth(), getHeight(), this);
+        }
+        if(state==exit){
+            g.drawImage(exitImage, 0, 0, getWidth(), getHeight(), this);
         }
     }
 

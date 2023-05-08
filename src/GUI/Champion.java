@@ -5,7 +5,7 @@ import java.awt.*;
 public class Champion extends JFrame {
     public Champion() {
 
-        ResetMouse panel = new ResetMouse(new Rectangle(320 - 30, 400, 150, 120), this);
+        ResetMouse panel = new ResetMouse( new Rectangle(320 - 30, 400, 250, 50),new Rectangle(320 - 30, 490, 250, 50),this);
         panel.setPreferredSize(new Dimension(960, 640));
 
         setVisible(true);

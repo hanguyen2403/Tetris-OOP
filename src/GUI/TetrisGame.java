@@ -14,7 +14,8 @@ public class TetrisGame extends JFrame {
 
     public TetrisGame() {
 
-        PlayMouse panel = new PlayMouse( new Rectangle(320 - 30, 400, 150, 120),this);
+
+        PlayMouse panel = new PlayMouse( new Rectangle(320 - 30, 400, 250, 50),new Rectangle(320 - 30, 490, 250, 50),this);
         panel.setPreferredSize(new Dimension(960, 640));
 
        setVisible(true);
