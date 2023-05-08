@@ -1,8 +1,11 @@
 package GUI;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Objects;
 import java.util.Random;
 
 import Block.*;
@@ -28,8 +31,7 @@ public class GameArea extends JPanel {
 
 
         this.setPreferredSize(new Dimension(960, 640));
-
-        this.setBackground(Color.BLACK);
+//        this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         blocks = new TetrisBlock[]{ new OBlock(), new LBlock(), new IBlock(), new ZBlock(),
                                     new JBlock(), new TBlock(), new SBlock()};
@@ -41,18 +43,23 @@ public class GameArea extends JPanel {
         super.paintComponent(g);
 //Draw hint
       Graphics2D g2 = (Graphics2D) g;
+        BufferedImage image = null;
+        try{
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/gameScene/gameplayScene.jpg")));
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        //Draw background
+        g2.drawImage(image, 0,0, Constant.WIDTH_BACKGROUND, Constant.HEIGHT_BACKGROUND, null);
         g2.setColor(Color.DARK_GRAY);
         g2.fillRect(610+50, 384+23, 320-32-30, 150);
 
-
-        g2.setColor(Color.WHITE);
-        g2.drawRect(660,48,320-32-30,352-32);
-
-
+//        g2.setColor(Color.WHITE);
+//        g2.drawRect(660,48,320-32-30,352-32);
 
         g2.setColor(Color.WHITE);
         g2.setFont(new Font("Monospaced", Font.PLAIN, 16));
-        g2.drawString("Instruction for players:", 610+100, 400);
+        g2.drawString("Instruction for players:", 610+50, 400);
         g2.setFont(new Font("Monospaced", Font.PLAIN, 14));
         g2.setColor(Color.WHITE); // Light Red
 
@@ -60,32 +67,22 @@ public class GameArea extends JPanel {
         g2.drawString(" ← : Move left", 610+65, 450);
         g2.drawString(" ↓ : Down faster", 610+65, 470);
         g2.drawString(" ↑ : Rotate", 610+65, 490);
-        g2.drawString("Space: Block move faster", 610+65, 510);
-        g2.drawString("C: Change Block", 610+65, 530);
-
-        g2.setFont(new Font("Monospaced", Font.PLAIN, 20));
-        g2.drawString("Next block ",672,32);
+        g2.drawString(" Space: Block move faster", 610+65, 510);
+        g2.drawString(" C: Change Block", 610+65, 530);
 
 
 
         //show GameOVER
         //Show stats
-          g2.setColor(Color.WHITE);
-        g2.drawRect(75,354,320-85,190);
-        g2.setFont(new Font("Serif", Font.PLAIN, 31));
+//          g2.setColor(Color.WHITE);
+//        g2.drawRect(75,354,320-85,190);
+        g2.setFont(new Font("Monospaced", Font.PLAIN, 31));
         g2.drawString("Goal : "+GameThread.getGoal(),115,400);
         g2.drawString("Level :"+GameThread.getLevel(),115,400+60);
         g2.drawString("Score :"+GameThread.getScore(),115,400+60+60);
 
-
-
-        //Ve background line cho khung tro choi
         for (int y = 0; y < Constant.MAX_SCREEN_ROW; y++) {
             for (int x = 0; x < Constant.MAX_SCREEN_COL; x++) {
-                //GrayPink
-                g2.setColor(new Color(152, 128, 128));
-                g2.fillRect(Constant.CENTER + x * Constant.GridCellSide, y * Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
-                //Gray
                 g2.setColor(new Color(70, 70, 70));
                 g2.drawRect(Constant.CENTER + x * Constant.GridCellSide, y * Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
             }
@@ -157,21 +154,11 @@ public class GameArea extends JPanel {
             arrayBlock[3] = blocks[random.nextInt(blocks.length)];
             block = arrayBlock[0];
         }
-//        if (arrayBlock[1] == null) {}
-//        if (arrayBlock[2] == null) {}
-//        if (arrayBlock[3] == null) {}
-
-//        block = arrayBlock[0];
-//        arrayBlock[0] = arrayBlock[1];
-//        arrayBlock[1] = arrayBlock[2];
-//        arrayBlock[2] = arrayBlock[3];
-//        arrayBlock[3] = blocks[random.nextInt(blocks.length)];
         block.getBlockImage();
         arrayBlock[1].getBlockImage();
         arrayBlock[2].getBlockImage();
         arrayBlock[3].getBlockImage();
         block.Spawn();
-
     }
 
     //Check khi block day man hinh
