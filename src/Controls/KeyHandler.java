@@ -47,6 +47,5 @@ public class KeyHandler implements KeyListener {
         } else if (code == KeyEvent.VK_C) {
             changePressed = false;
         }
-
     }
 }

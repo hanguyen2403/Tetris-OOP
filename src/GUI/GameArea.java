@@ -41,42 +41,34 @@ public class GameArea extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-//Draw hint
-      Graphics2D g2 = (Graphics2D) g;
+        Graphics2D g2 = (Graphics2D) g;
         BufferedImage image = null;
         try{
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/gameScene/gameplayScene.jpg")));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/gameScene/gameplayScene.png")));
         }catch (IOException e){
             e.printStackTrace();
         }
         //Draw background
         g2.drawImage(image, 0,0, Constant.WIDTH_BACKGROUND, Constant.HEIGHT_BACKGROUND, null);
-        g2.setColor(Color.DARK_GRAY);
-        g2.fillRect(610+50, 384+23, 320-32-30, 150);
-
-//        g2.setColor(Color.WHITE);
-//        g2.drawRect(660,48,320-32-30,352-32);
-
+        //Draw instruction
         g2.setColor(Color.WHITE);
         g2.setFont(new Font("Monospaced", Font.PLAIN, 16));
-        g2.drawString("Instruction for players:", 610+50, 400);
+        g2.drawString("Instruction for players:", 610+60, 400);
         g2.setFont(new Font("Monospaced", Font.PLAIN, 14));
         g2.setColor(Color.WHITE); // Light Red
 
-        g2.drawString(" → : Move right", 610+65, 430);
-        g2.drawString(" ← : Move left", 610+65, 450);
-        g2.drawString(" ↓ : Down faster", 610+65, 470);
-        g2.drawString(" ↑ : Rotate", 610+65, 490);
-        g2.drawString(" Space: Block move faster", 610+65, 510);
-        g2.drawString(" C: Change Block", 610+65, 530);
+        g2.drawString(" → : Move right", 610+65, 420);
+        g2.drawString(" ← : Move left", 610+65, 440);
+        g2.drawString(" ↓ : Down faster", 610+65, 460);
+        g2.drawString(" ↑ : Rotate", 610+65, 480);
+        g2.drawString(" Space: Block move faster", 610+65, 500);
+        g2.drawString(" C: Change Block", 610+65, 520);
 
 
 
         //show GameOVER
         //Show stats
-//          g2.setColor(Color.WHITE);
-//        g2.drawRect(75,354,320-85,190);
-        g2.setFont(new Font("Monospaced", Font.PLAIN, 31));
+        g2.setFont(new Font("Survivant", Font.BOLD, 31));
         g2.drawString("Goal : "+GameThread.getGoal(),115,400);
         g2.drawString("Level :"+GameThread.getLevel(),115,400+60);
         g2.drawString("Score :"+GameThread.getScore(),115,400+60+60);
@@ -222,6 +214,7 @@ public class GameArea extends JPanel {
         repaint();
     }
     public void ChangeBlock(){
+        if (CollisionCheck.checkBottom(block) == false) return;
         if (holdBlock == null) {
             holdBlock = block;
             holdBlock.Spawn();
@@ -295,7 +288,12 @@ public class GameArea extends JPanel {
         }
     }
     public void showSideBlock(Graphics2D g2, int Y){
-        if (holdBlock != null) g2.drawImage(holdBlock.Image1(),Constant.CENTER - Constant.GridCellSide*5, Constant.GridCellSide*2, Constant.GridCellSide * holdBlock.GetX(), Constant.GridCellSide * holdBlock.GetY(), null);
+        if (holdBlock != null)
+            if (holdBlock.getBlock == 1)
+            {
+                g2.drawImage(holdBlock.Image1(),Constant.CENTER - Constant.GridCellSide*6 + 8, Constant.GridCellSide*3 - 8, Constant.GridCellSide * holdBlock.GetX(), Constant.GridCellSide * holdBlock.GetY(), null);} else{
+                g2.drawImage(holdBlock.Image1(),Constant.CENTER - Constant.GridCellSide*5 - 8, Constant.GridCellSide*2 + 8, Constant.GridCellSide * holdBlock.GetX(), Constant.GridCellSide * holdBlock.GetY(), null);
+            }
         for (int i = 1; i < 4; i++){
             int y;
             BufferedImage image = arrayBlock[i].Image1();

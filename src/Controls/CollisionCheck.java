@@ -29,7 +29,6 @@ public class CollisionCheck {
         if (block.getLeftEdge() == 0) {
             return false;
         }
-//Logic Bug
         int[][] shape = block.getShape();
         int Column = block.getColumn();
         int Row = block.getRow();
