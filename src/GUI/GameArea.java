@@ -130,7 +130,7 @@ public class GameArea extends JPanel {
                 }
             }
         }
-        showNextBlock(g2, 64);
+        showSideBlock(g2, 64);
     }
 
     private void drawGridSquare(Graphics2D g2, BufferedImage image, int x, int y) {
@@ -239,6 +239,7 @@ public class GameArea extends JPanel {
             holdBlock = block;
             holdBlock.Spawn();
             spawnBlock();
+            holdBlock.getBlockImage();
             repaint();
         } else {
             TetrisBlock swap;
@@ -246,6 +247,7 @@ public class GameArea extends JPanel {
             block = holdBlock;
             holdBlock = swap;
             holdBlock.Spawn();
+            holdBlock.getBlockImage();
             repaint();
         }
     }
@@ -305,7 +307,8 @@ public class GameArea extends JPanel {
             }
         }
     }
-    public void showNextBlock(Graphics2D g2, int Y){
+    public void showSideBlock(Graphics2D g2, int Y){
+        if (holdBlock != null) g2.drawImage(holdBlock.Image1(),Constant.CENTER - Constant.GridCellSide*5, Constant.GridCellSide*2, Constant.GridCellSide * holdBlock.GetX(), Constant.GridCellSide * holdBlock.GetY(), null);
         for (int i = 1; i < 4; i++){
             int y;
             BufferedImage image = arrayBlock[i].Image1();

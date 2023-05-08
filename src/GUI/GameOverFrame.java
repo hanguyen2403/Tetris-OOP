@@ -55,8 +55,20 @@ public class GameOverFrame extends JFrame {
     public void restartGame() {
 
         int level = gameThread.getLevel();
-        int goal;
-        int speed;
+        int goal = 0;
+        int speed = 0;
+        int checkLevel = 0;
+//        if (level == 1) {
+//            checkLevel = level;
+//            goal = 50;
+//            speed = 600;
+//        }
+//        if (level > checkLevel) {
+//            goal += 50;
+//            if (speed != 100)
+//                speed -=100;
+//            checkLevel = level;
+//        }
         switch (level) {
             case 2:
                 goal = 100;
