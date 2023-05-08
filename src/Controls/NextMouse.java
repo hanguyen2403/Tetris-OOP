@@ -1,79 +1,70 @@
 package Controls;
 
-import GUI.GameWindow;
+import GUI.NextScence;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.*;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import javax.imageio.ImageIO;
 
-public class ResetMouse extends JPanel implements MouseListener, MouseMotionListener {
-    private BufferedImage backgroundImage,playImage,exitImage;
-    JFrame frame;
-    private boolean isClicked;
+public class NextMouse extends JPanel implements MouseListener, MouseMotionListener {
+    private NextScence gameOverFrame;
     private Point mousePos = new Point(-1, -1);
     private Rectangle area,area2;
     private int play,exit,state;
+    private BufferedImage backgroundImage,playImage,exitImage;
 
-    public ResetMouse(Rectangle area, Rectangle area2,JFrame jFrame) {
+    public NextMouse(NextScence gameOverFrame, Rectangle area, Rectangle area2) {
+        this.gameOverFrame = gameOverFrame;
         addMouseListener(this);
         addMouseMotionListener(this);
         this.area=area;
-        this.frame=jFrame;
+
         this.area2=area2;
         state=1;
         play=2;
         exit=3;
         // Load the background image
         try {
-            backgroundImage = ImageIO.read(getClass().getResourceAsStream("/gameoverSeen/noclickbutton.jpg"));
-            playImage=ImageIO.read(getClass().getResourceAsStream("/gameoverSeen/clikPlayAgain.jpg"));
-            exitImage=ImageIO.read(getClass().getResourceAsStream("/gameoverSeen/clikExit.jpg"));
+            backgroundImage = ImageIO.read(getClass().getResourceAsStream("/NextLevelScene/noClickButton.jpg"));
+            playImage=ImageIO.read(getClass().getResourceAsStream("/NextLevelScene/clickNextLevel.jpg"));
+            exitImage=ImageIO.read(getClass().getResourceAsStream("/NextLevelScene/clickExit.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void mouseClicked(MouseEvent e) {
-        // Do nothing
-    }
-
-    public void mousePressed(MouseEvent e) {
         if (area.contains(e.getPoint())) {
-            handleMouseEvent(e);
+            gameOverFrame.restartGame();
         } else if (area2.contains(e.getPoint())) {
             System.exit(0);
-
         }
     }
-    public void handleMouseEvent(MouseEvent e) {
-        frame.dispose();
-        startNewGame();
-    }
-    private void startNewGame() {
-        try {
-            GameWindow gameWindow = new GameWindow();
-            gameWindow.restart();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    public void mouseReleased(MouseEvent e) {
-        isClicked = false;
-        repaint();
+
+    @Override
+    public void mousePressed(MouseEvent e) {}
+
+    @Override
+    public void mouseReleased(MouseEvent e) {}
+
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+
+    @Override
+    public void mouseExited(MouseEvent e) {}
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
     }
 
-    public void mouseEntered(MouseEvent e) {
-        // Do nothing
-    }
-
-    public void mouseExited(MouseEvent e) {
-        // Do nothing
-    }
-
+    @Override
     public void mouseMoved(MouseEvent e) {
         Point point = e.getPoint();
         if (area.contains(point)) {
@@ -87,11 +78,6 @@ public class ResetMouse extends JPanel implements MouseListener, MouseMotionList
             repaint();
         }
     }
-    public void mouseDragged(MouseEvent e) {
-        mousePos = e.getPoint();
-        repaint();
-    }
-
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
@@ -106,6 +92,4 @@ public class ResetMouse extends JPanel implements MouseListener, MouseMotionList
             g.drawImage(exitImage, 0, 0, getWidth(), getHeight(), this);
         }
     }
-
-
 }

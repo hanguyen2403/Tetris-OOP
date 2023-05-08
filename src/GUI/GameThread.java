@@ -15,10 +15,8 @@ public class GameThread extends Thread {
     public static int speed = 1000;
 
 
-
-
     private JFrame gameAreaFrame;
-    private boolean running;
+    public static boolean running;
 
 
     public GameThread(GameArea gameArea) {
@@ -34,11 +32,14 @@ public class GameThread extends Thread {
     public void run() {
 
         while (true) {
+            if(speed==0){
+                speed=200;
+            }
             gameArea.spawnBlock();
             while (gameArea.moveBlockDown()) {
                 try {
                     Thread.sleep(speed);
-
+                    System.out.println(speed);
                 } catch (InterruptedException e) {
                     Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, e);
                 }
@@ -50,42 +51,47 @@ public class GameThread extends Thread {
 
             gameArea.moveBlockToBackground();
             score += 10 * gameArea.clearLines();
-            if (score >= goal&&level<5) {
+            score+=50 ;
+            if (score >= goal ) {
                 showGameOverScreen();
                 break;
-            } else if (score>=goal&&level==5) {
-                champion();
-                gameAreaFrame.dispose();
-                level=1;
-                break;
-
             }
-        }
 
+
+        }
         if (score >= goal) {
             level++;
+        }else{
+            gameAreaFrame.dispose();
+            restart();
         }
-        if ( gameover &&level<6) {
-            showGameOverScreen();
-        }
+
+
+
+
     }
 
     public static int getScore() {
         return score;
     }
+
+
     public static int getGoal() {
         return goal;
     }
+
     public static int getLevel() {
         return level;
     }
+
     public void startGame() {
         if (!running) {
             running = true;
             start();
         }
     }
-    public void stopGame() {
+
+    public  static void stopGame() {
         running = false;
     }
 
@@ -93,23 +99,25 @@ public class GameThread extends Thread {
     public static void setScore() {
         score = 0;
     }
-    public static void setGoal(int goals){
-        goal=goals;
+
+    public static void setGoal(int goals) {
+        goal = goals;
     }
-    public static void setGameover(){
-        gameover=false;
+
+    public static void setGameover() {
+        gameover = false;
     }
-    public static void setLevel(int levels){
-        level=levels;
+
+    public static void setLevel(int levels) {
+        level = levels;
     }
+
+
     private void showGameOverScreen() {
-        GameOverFrame gameOverFrame = new GameOverFrame(gameArea,this);
-        int x = gameAreaFrame.getX() + (gameAreaFrame.getWidth() - gameOverFrame.getWidth()) / 2;
-        int y = gameAreaFrame.getY() + (gameAreaFrame.getHeight() - gameOverFrame.getHeight()) / 2;
-        gameOverFrame.setLocation(x, y);
-        gameOverFrame.setVisible(true);
+        NextScence gameOverFrame=new NextScence(gameArea,this);
     }
-    public void champion(){
-        Champion champion=new Champion();
+
+    public void restart() {
+        Restart restart = new Restart();
     }
 }

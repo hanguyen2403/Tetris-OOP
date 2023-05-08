@@ -1,15 +1,14 @@
 package Controls;
 
-import GUI.GameOverFrame;
+import GUI.NextScence;
 
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class ExistMouse implements MouseListener {
-    private final GameOverFrame gameOverFrame;
+    private final NextScence gameOverFrame;
 
-    public ExistMouse(GameOverFrame gameOverFrame) {
+    public ExistMouse(NextScence gameOverFrame) {
         this.gameOverFrame = gameOverFrame;
     }
 

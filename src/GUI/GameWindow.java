@@ -2,12 +2,15 @@ package GUI;
 
 import Variables.Constant;
 
+import Variables.Constant;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class GameWindow extends JFrame {
     private GameArea gameArea;
+    GameThread gameThread;
 
     public GameWindow() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -26,7 +29,7 @@ public class GameWindow extends JFrame {
 
     public void startGameThread() {
         new GameThread(gameArea).start();
-        if(GameThread.level==6){
+        if (GameThread.level == 6) {
             this.dispose();
         }
 
@@ -82,72 +85,35 @@ public class GameWindow extends JFrame {
 
         this.requestFocus();
     }
-    public void startLoadedGameThread(int level) {
-        GameThread.setLevel(level);
-        int goal ;
-        int speed;
-        switch (level) {
-            case 2:
-                goal = 100;
-                speed=800;
-                break;
-            case 3:
-                goal = 150;
-                speed=600;
-                break;
-            case 4:
-                speed=600;
-                goal = 400;
-                break;
-            case 5:
-                speed=200;
-                goal = 250;
-                break;
-            default:
-                goal=50;
-                speed=1000;
-                break;
-        }
-        GameThread.setGoal(goal);
-        GameThread.speed=speed;
 
-        gameArea.requestFocus();
-       startGameThread();
-    }
 
     public void restart() {
         GameThread.setLevel(1);
         int goal = 50;
         int speed = 1000;
 
+
         GameThread.setGoal(goal);
         GameThread.speed = speed;
         GameThread.setScore();
-
-        // Close the current game window
-        this.dispose();
-
-
-        // Remove the game area from the current game window
-        this.remove(gameArea);
-
-        // Create a new game area and add it to a new game window
-        gameArea = new GameArea();
-        this.add(gameArea);
-
-        // Pack the new game window and center it on the screen
-        pack();
-        setLocationRelativeTo(null);
-
-        // Start a new game thread
+        gameArea.requestFocus();
         startGameThread();
-        // Create a new game window and start a new game thread with level 1
-        GameWindow newGame = new GameWindow();
-        newGame.startLoadedGameThread(1);
-
     }
-    public void closeWindow() {
-        // Dispose of the JFrame to close the window
-        dispose();
+
+    public void nextGame() {
+
+        int level = gameThread.getLevel();
+        int goal=50*level;
+        int speed;
+        if(level<5) {
+            speed = 1000 - 200 * level;
+        }else{
+            speed=200;
+        }
+        GameThread.setGoal(goal);
+        GameThread.speed = speed;
+        GameThread.setScore();
+        gameArea.requestFocus();
+        startGameThread();
     }
 }
