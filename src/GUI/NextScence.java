@@ -15,7 +15,7 @@ public class NextScence extends JFrame {
         this.gameArea=gameArea;
         this.gameThread=gameThread;
 
-        NextMouse panel = new NextMouse(this, new Rectangle(320 - 30, 400, 250, 50),new Rectangle(320 - 30, 490, 250, 50));
+        NextMouse panel = new NextMouse(this, new Rectangle(320 - 70, 400, 550, 50),new Rectangle(320 - 70, 490, 250+150+150, 50));
         panel.setPreferredSize(new Dimension(960, 640));
 
         setVisible(true);
