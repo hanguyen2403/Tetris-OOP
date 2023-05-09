@@ -33,8 +33,8 @@ public class NextScence extends JFrame {
         int level = gameThread.getLevel();
         int goal=50*level;
         int speed=1000-200*level;
-        if(speed<0){
-            speed=200;
+        if(speed<300){
+            speed=300;
         }
 
         GameThread.speed=speed;
