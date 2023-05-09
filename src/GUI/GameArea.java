@@ -52,8 +52,8 @@ public class GameArea extends JPanel {
         g2.drawImage(image, 0,0, Constant.WIDTH_BACKGROUND, Constant.HEIGHT_BACKGROUND, null);
         //Draw instruction
         g2.setColor(Color.WHITE);
-        g2.setFont(new Font("Monospaced", Font.PLAIN, 16));
-        g2.drawString("Instruction for players:", 610+60, 400);
+        g2.setFont(new Font("Monospaced", Font.BOLD, 14));
+        g2.drawString("Instruction for players:", 610+70, 400);
         g2.setFont(new Font("Monospaced", Font.PLAIN, 14));
         g2.setColor(Color.WHITE); // Light Red
 
@@ -63,6 +63,15 @@ public class GameArea extends JPanel {
         g2.drawString(" ↑ : Rotate", 610+65, 480);
         g2.drawString(" Space: Block move faster", 610+65, 500);
         g2.drawString(" C: Change Block", 610+65, 520);
+
+
+
+        //show GameOVER
+        //Show stats
+        g2.setFont(new Font("Monospaced", Font.BOLD, 31));
+        g2.drawString("Goal : "+GameThread.getGoal(),115,410);
+        g2.drawString("Level :"+GameThread.getLevel(),115,410+60);
+        g2.drawString("Score :"+GameThread.getScore(),115,410+60+60);
 
 
 
