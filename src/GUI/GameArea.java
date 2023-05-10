@@ -67,9 +67,9 @@ public class GameArea extends JPanel {
         //show GameOVER
         //Show stats
         g2.setFont(new Font("Survivant", Font.BOLD, 31));
-        g2.drawString("Goal : "+GameThread.getGoal(),115,400);
-        g2.drawString("Level :"+GameThread.getLevel(),115,400+60);
-        g2.drawString("Score :"+GameThread.getScore(),115,400+60+60);
+        g2.drawString("Goal: "+GameThread.getGoal(),115,410);
+        g2.drawString("Level: "+GameThread.getLevel(),115,410+60);
+        g2.drawString("Score: "+GameThread.getScore(),115,410+60+60);
 
         for (int y = 0; y < Constant.MAX_SCREEN_ROW; y++) {
             for (int x = 0; x < Constant.MAX_SCREEN_COL; x++) {
