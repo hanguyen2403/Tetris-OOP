@@ -66,7 +66,7 @@ public class GameArea extends JPanel {
 
         //show GameOVER
         //Show stats
-        g2.setFont(new Font("Survivant", Font.BOLD, 31));
+        g2.setFont(new Font("Monospaced", Font.BOLD, 31));
         g2.drawString("Goal: "+GameThread.getGoal(),115,410);
         g2.drawString("Level: "+GameThread.getLevel(),115,410+60);
         g2.drawString("Score: "+GameThread.getScore(),115,410+60+60);
