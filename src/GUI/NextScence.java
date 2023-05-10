@@ -6,10 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class NextScence extends JFrame {
-
-
     GameArea gameArea;
     GameThread gameThread;
+    ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("icon/icon.png"));
 
     public NextScence(GameArea gameArea, GameThread gameThread) {
         this.gameArea=gameArea;
@@ -24,6 +23,8 @@ public class NextScence extends JFrame {
         // Set the content pane layout to null
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle(Constant.TITLE);
+        setIconImage(logo.getImage());
         setLocationRelativeTo(null);
 
 
