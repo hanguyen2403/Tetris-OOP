@@ -24,7 +24,8 @@ public class TetrisGame extends JFrame {
         // Set the content pane layout to null
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-         setIconImage(logo.getImage());
+        setTitle(Constant.TITLE);
+        setIconImage(logo.getImage());
         setLocationRelativeTo(null);
         // Add the background to the content pane
 
