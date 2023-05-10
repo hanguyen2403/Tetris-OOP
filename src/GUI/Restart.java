@@ -15,6 +15,7 @@ public class Restart extends JFrame {
         // Set the content pane layout to null
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle(Constant.TITLE);
         setIconImage(logo.getImage());
         setLocationRelativeTo(null);
 
