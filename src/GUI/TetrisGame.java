@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import Variables.Constant;
 
 public class TetrisGame extends JFrame {
     ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("icon/icon.png"));

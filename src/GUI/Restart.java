@@ -2,6 +2,8 @@ package GUI;
 import Controls.ResetMouse;
 import javax.swing.*;
 import java.awt.*;
+import Variables.Constant;
+
 public class Restart extends JFrame {
     ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("icon/icon.png"));
     public Restart() {
@@ -13,7 +15,6 @@ public class Restart extends JFrame {
         add(panel, BorderLayout.CENTER);
         pack();
         // Set the content pane layout to null
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle(Constant.TITLE);
         setIconImage(logo.getImage());

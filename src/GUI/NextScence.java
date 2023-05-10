@@ -1,6 +1,7 @@
 package GUI;
 
 import Controls.NextMouse;
+import Variables.Constant;
 
 import javax.swing.*;
 import java.awt.*;
