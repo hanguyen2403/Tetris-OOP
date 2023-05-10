@@ -11,7 +11,7 @@ import java.awt.*;
 import java.io.IOException;
 
 public class TetrisGame extends JFrame {
-
+    ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("icon/icon.png"));
     public TetrisGame() {
 
 
@@ -24,6 +24,7 @@ public class TetrisGame extends JFrame {
         // Set the content pane layout to null
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         setIconImage(logo.getImage());
         setLocationRelativeTo(null);
         // Add the background to the content pane
 
