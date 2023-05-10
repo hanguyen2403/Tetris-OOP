@@ -11,11 +11,13 @@ import java.awt.event.KeyEvent;
 public class GameWindow extends JFrame {
     private GameArea gameArea;
     GameThread gameThread;
+    ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("icon/icon.png"));
 
     public GameWindow() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setTitle(Constant.TITLE);
+        setIconImage(logo.getImage());
 
         gameArea = new GameArea();
         this.add(gameArea);
