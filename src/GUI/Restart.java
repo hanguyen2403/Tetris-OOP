@@ -3,6 +3,7 @@ import Controls.ResetMouse;
 import javax.swing.*;
 import java.awt.*;
 public class Restart extends JFrame {
+    ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("icon/icon.png"));
     public Restart() {
 
         ResetMouse panel = new ResetMouse( new Rectangle(320 - 30, 400, 250, 50),new Rectangle(320 - 30, 490, 250, 50),this);
@@ -14,6 +15,7 @@ public class Restart extends JFrame {
         // Set the content pane layout to null
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setIconImage(logo.getImage());
         setLocationRelativeTo(null);
 
     }
