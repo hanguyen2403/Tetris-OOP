@@ -9,12 +9,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class GameWindow extends JFrame {
+    SoundManager sound = new SoundManager("src/resources/Sound/start.wav");
     private GameArea gameArea;
     GameThread gameThread;
     ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("icon/icon.png"));
 
     public GameWindow() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        sound.playSound("src/resources/Sound/start.wav");
         setResizable(false);
         setTitle(Constant.TITLE);
         setIconImage(logo.getImage());
