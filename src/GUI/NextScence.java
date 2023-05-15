@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class NextScence extends JFrame {
+    SoundManager sound = new SoundManager("src/resources/Sound/Victory.wav");
     GameArea gameArea;
     GameThread gameThread;
     ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("icon/icon.png"));
@@ -24,6 +25,8 @@ public class NextScence extends JFrame {
         // Set the content pane layout to null
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        sound.playSound("src/resources/Sound/Victory.wav");
+        setResizable(false);
         setTitle(Constant.TITLE);
         setIconImage(logo.getImage());
         setLocationRelativeTo(null);
