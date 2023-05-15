@@ -1,6 +1,7 @@
 package GUI;
 
 import Controls.NextMouse;
+import Controls.SoundManager;
 import Variables.Constant;
 
 import javax.swing.*;
