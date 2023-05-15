@@ -7,6 +7,7 @@ import Variables.Constant;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import Controls.SoundManager;
 
 public class GameWindow extends JFrame {
     SoundManager sound = new SoundManager("src/resources/Sound/start.wav");
