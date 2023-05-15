@@ -12,6 +12,7 @@ import java.io.IOException;
 import Variables.Constant;
 
 public class TetrisGame extends JFrame {
+    SoundManager sound = new SoundManager("src/resources/Sound/welcome.wav");
     ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("icon/icon.png"));
     public TetrisGame() {
 
@@ -25,6 +26,8 @@ public class TetrisGame extends JFrame {
         // Set the content pane layout to null
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        sound.playSound("src/resources/Sound/welcome.wav");
+        setResizable(false);
         setTitle(Constant.TITLE);
         setIconImage(logo.getImage());
         setLocationRelativeTo(null);
