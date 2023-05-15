@@ -5,6 +5,7 @@ import java.awt.*;
 import Variables.Constant;
 
 public class Restart extends JFrame {
+    SoundManager sound = new SoundManager("src/resources/Sound/GameOverSound.wav");
     ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("icon/icon.png"));
     public Restart() {
 
@@ -16,6 +17,8 @@ public class Restart extends JFrame {
         pack();
         // Set the content pane layout to null
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        sound.playSound("src/resources/Sound/GameOverSound.wav");
+        setResizable(false);
         setTitle(Constant.TITLE);
         setIconImage(logo.getImage());
         setLocationRelativeTo(null);
