@@ -1,5 +1,6 @@
 package GUI;
 import Controls.ResetMouse;
+import Controls.SoundManager;
 import javax.swing.*;
 import java.awt.*;
 import Variables.Constant;
