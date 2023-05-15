@@ -10,11 +10,14 @@ import java.util.Random;
 
 import Block.*;
 import Controls.CollisionCheck;
+import Controls.SoundManager;
 import Variables.Constant;
 
 //gameAre aka gamePannel
 public class GameArea extends JPanel {
     public static BufferedImage[][] background;
+    
+    SoundManager sound = new SoundManager("src/resources/Sound/clear.wav");
 
     //bien block tu pack Block
     public TetrisBlock block;
@@ -168,6 +171,7 @@ public class GameArea extends JPanel {
         }
         block.moveDown();
         checkDrop = false;
+        sound.playSound("src/resources/Sound/down.wav");
         repaint();
         return true;
     }
@@ -176,6 +180,7 @@ public class GameArea extends JPanel {
         if (CollisionCheck.checkLeft(block) == false) return;
         if (checkDrop) return;
         block.moveLeft();
+        sound.playSound("src/resources/Sound/move.wav");
         repaint();
     }
     public void moveBlockRight(){
@@ -183,12 +188,14 @@ public class GameArea extends JPanel {
         if (CollisionCheck.checkRight(block) == false) return;
         if (checkDrop) return;
         block.moveRight();
+        sound.playSound("src/resources/Sound/move.wav");
         repaint();
     }
     public void moveBlockDownFaster(){
         if (block == null) return;
         if (CollisionCheck.checkBottom(block) == false) return;
         block.moveDown();
+        sound.playSound("src/resources/Sound/faster.wav");
         repaint();
       //  }
     }
@@ -208,7 +215,7 @@ public class GameArea extends JPanel {
         if(block.getLeftEdge() < 0) block.setX(0);
         if(block.getRightEdge() >= Constant.MAX_SCREEN_COL) block.setX(Constant.MAX_SCREEN_COL - block.getColumn());
         if(block.getBottomEdge() >= Constant.MAX_SCREEN_ROW) block.setY(Constant.MAX_SCREEN_ROW - block.getRow());
-
+        sound.playSound("src/resources/Sound/rotate.wav");
         repaint();
     }
     public void ChangeBlock(){
@@ -218,6 +225,7 @@ public class GameArea extends JPanel {
             holdBlock.Spawn();
             spawnBlock();
             holdBlock.getBlockImage();
+            sound.playSound("src/resources/Sound/hold.wav");
             repaint();
         } else {
             TetrisBlock swap;
@@ -226,6 +234,7 @@ public class GameArea extends JPanel {
             holdBlock = swap;
             holdBlock.Spawn();
             holdBlock.getBlockImage();
+            sound.playSound("src/resources/Sound/hold.wav");
             repaint();
         }
     }
@@ -249,6 +258,9 @@ public class GameArea extends JPanel {
                 row++;
                 repaint();
             }
+        }
+        if(lineCleared > 0) {
+           sound.playSound("src/resources/Sound/clear.wav");
         }
         return lineCleared;
     }
@@ -280,6 +292,7 @@ public class GameArea extends JPanel {
         for (int row = 0; row < Row; row++) {
             for (int column = 0; column < Column; column++) {
                 if (shape[row][column] != 0) {
+                    sound.playSound("src/resources/Sound/collision.wav");
                     background[row + yPos][column + xPos] = image;
                 }
             }
