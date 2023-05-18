@@ -41,7 +41,7 @@ public class NextMouse extends JPanel implements MouseListener, MouseMotionListe
 
     public void mouseClicked(MouseEvent e) {
         if (area.contains(e.getPoint())) {
-            gameOverFrame.restartGame();
+            gameOverFrame.NextGame();
         } else if (area2.contains(e.getPoint())) {
             System.exit(0);
         }

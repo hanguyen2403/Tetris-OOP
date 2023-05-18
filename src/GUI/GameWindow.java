@@ -34,9 +34,7 @@ public class GameWindow extends JFrame {
 
     public void startGameThread() {
         new GameThread(gameArea).start();
-        if (GameThread.level == 6) {
-            this.dispose();
-        }
+
 
     }
 
@@ -93,32 +91,15 @@ public class GameWindow extends JFrame {
 
 
     public void restart() {
-        GameThread.setLevel(1);
+        GameThread.reset();
         int goal = 50;
         int speed = 1000;
-
-
-        GameThread.setGoal(goal);
-        GameThread.speed = speed;
+        GameThread.ResetGoal();
+        GameThread.setSpeed(speed);
         GameThread.setScore();
         gameArea.requestFocus();
         startGameThread();
     }
 
-    public void nextGame() {
 
-        int level = gameThread.getLevel();
-        int goal=50*level;
-        int speed;
-        if(level<5) {
-            speed = 1000 - 200 * level;
-        }else{
-            speed=200;
-        }
-        GameThread.setGoal(goal);
-        GameThread.speed = speed;
-        GameThread.setScore();
-        gameArea.requestFocus();
-        startGameThread();
-    }
 }

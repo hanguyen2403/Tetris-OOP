@@ -7,22 +7,26 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 public class GameThread extends Thread {
     private GameArea gameArea;
+
     private static int score;
-    public static int goal = 50;
-    public static int level = 1;
-    public static boolean gameover;
+    private static int goal = 50;
+    private static int level = 1;
+
+    private static boolean gameover;
     private static volatile boolean paused = false;
-    public static int speed = 1000;
+    private static int speed = 1000;
 
 
     private JFrame gameAreaFrame;
-    public static boolean running;
+    private static boolean running;
 
 
     public GameThread(GameArea gameArea) {
         this.gameArea = gameArea;
         running = false;
-
+  level=1;
+  score=0;
+  goal=50;
         paused = false;
         gameAreaFrame = (JFrame) SwingUtilities.getRoot(gameArea);
         gameAreaFrame.setFocusable(true);
@@ -32,12 +36,11 @@ public class GameThread extends Thread {
     public void run() {
 
         while (true) {
-            if(speed==0){
-                speed=200;
-            }
+
             gameArea.spawnBlock();
             while (gameArea.moveBlockDown()) {
                 try {
+                    System.out.println(speed);
                     Thread.sleep(speed);
 
                 } catch (InterruptedException e) {
@@ -54,36 +57,24 @@ public class GameThread extends Thread {
             
           
             if (score >= goal ) {
-                showGameOverScreen();
+
                 break;
             }
-
-
         }
-        if (score >= goal) {
-            level++;
+        if(score>=goal){
+            Next();
         }else{
             gameAreaFrame.dispose();
             restart();
         }
 
-
-
-
     }
-
-    public static int getScore() {
-        return score;
+    public static void setScore()
+    {
+        score=0;
     }
 
 
-    public static int getGoal() {
-        return goal;
-    }
-
-    public static int getLevel() {
-        return level;
-    }
 
     public void startGame() {
         if (!running) {
@@ -97,24 +88,41 @@ public class GameThread extends Thread {
     }
 
 
-    public static void setScore() {
-        score = 0;
-    }
-
-    public static void setGoal(int goals) {
-        goal = goals;
-    }
-
     public static void setGameover() {
         gameover = false;
     }
 
-    public static void setLevel(int levels) {
-        level = levels;
+  public static void ResetGoal(){
+        goal=50;
+  }
+    public static int getScore() {
+        return GameThread.score;
+    }
+
+    public static int getGoal() {
+        return GameThread.goal;
+    }
+
+    public static void setGoal(int goal) {
+        GameThread.goal = goal;
+    }
+    public static void setLevel(int goal) {
+        GameThread.level = goal;
+    }
+
+    public static void setSpeed(int goal) {
+        GameThread.speed = goal;
+    }
+    public static int getLevel() {
+        return GameThread.level;
     }
 
 
-    private void showGameOverScreen() {
+    public static void  reset()
+    {
+        level=1;
+    }
+    private void Next() {
         NextScence gameOverFrame=new NextScence(gameArea,this);
     }
 

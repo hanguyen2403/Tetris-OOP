@@ -34,25 +34,35 @@ public class NextScence extends JFrame {
 
 
     }
-    public void restartGame() {
+    public void NextGame() {
+        int currentLevel = gameThread.getLevel();
+        int nextLevel = currentLevel + 1;
+        int goal = 50 * nextLevel;
+        int speed = 1000 - 200 * currentLevel;
+        if (speed < 300) {
+            speed = 300;
+        }
+        this.dispose();
 
-        int level = gameThread.getLevel();
-        int goal=50*level;
-        int speed=1000-200*level;
-        if(speed<300){
-            speed=300;
+        gameThread.stopGame();
+        gameThread.interrupt(); // Interrupt the thread to exit any sleeping states
+        try {
+            gameThread.join(); // Wait for the thread to finish
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
-        GameThread.speed=speed;
+        gameThread = new GameThread(gameArea);
+        gameThread.setSpeed(speed);
         gameThread.setScore();
+        gameThread.setLevel(nextLevel);
         gameThread.setGoal(goal);
         gameThread.setGameover();
         gameArea.clear();
-        this.dispose();
-        gameThread.stopGame();
-        gameThread = new GameThread(gameArea);
+        gameArea.requestFocus();
         gameThread.startGame();
     }
+
 
 
 
