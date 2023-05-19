@@ -40,7 +40,7 @@ public class GameThread extends Thread {
             gameArea.spawnBlock();
             while (gameArea.moveBlockDown()) {
                 try {
-                    System.out.println(speed);
+
                     Thread.sleep(speed);
 
                 } catch (InterruptedException e) {
