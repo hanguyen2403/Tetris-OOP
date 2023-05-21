@@ -16,12 +16,10 @@ public class TetrisGame extends JFrame {
     SoundManager sound = new SoundManager("src/resources/Sound/welcome.wav");
     ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("icon/icon.png"));
     public TetrisGame() {
-
-
         PlayMouse panel = new PlayMouse( new Rectangle(320 - 30, 400, 250, 50),new Rectangle(320 - 30, 490, 250, 50),this);
         panel.setPreferredSize(new Dimension(960, 640));
 
-       setVisible(true);
+        setVisible(true);
         add(panel, BorderLayout.CENTER);
         pack();
         // Set the content pane layout to null
@@ -36,6 +34,4 @@ public class TetrisGame extends JFrame {
 
         setVisible(true);
     }
-
-
 }

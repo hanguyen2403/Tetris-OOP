@@ -12,7 +12,6 @@ import Controls.SoundManager;
 public class GameWindow extends JFrame {
     SoundManager sound = new SoundManager("src/resources/Sound/start.wav");
     private GameArea gameArea;
-    GameThread gameThread;
     ImageIcon logo = new ImageIcon(getClass().getClassLoader().getResource("icon/icon.png"));
 
     public GameWindow() {
@@ -34,8 +33,6 @@ public class GameWindow extends JFrame {
 
     public void startGameThread() {
         new GameThread(gameArea).start();
-
-
     }
 
     public void initControls() {

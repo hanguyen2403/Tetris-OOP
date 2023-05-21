@@ -16,10 +16,5 @@ public class Constant {
 
     public static final int SIDE_WIDTH = 680;
     public static final int GridCellSide = TILE_SIZE; //32
-    public static final int Initial_X = GridCellSide * 3;
-
     public static final String TITLE = "Tetris";
-    public static final int FPS = 60;
-    public static final int Tera= 1_000_000_000;
-
 }

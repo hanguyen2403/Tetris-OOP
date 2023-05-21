@@ -24,17 +24,13 @@ public class GameArea extends JPanel {
     public TetrisBlock[] blocks;
 
     public TetrisBlock holdBlock;
-    public boolean gameover=false;
+    public boolean gameover = false;
 
     public TetrisBlock[] arrayBlock = new TetrisBlock[4];
     public boolean checkDrop = false;
 
     public GameArea(){
-
-
-
         this.setPreferredSize(new Dimension(960, 640));
-//        this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         blocks = new TetrisBlock[]{ new OBlock(), new LBlock(), new IBlock(), new ZBlock(),
                                     new JBlock(), new TBlock(), new SBlock()};
@@ -67,8 +63,6 @@ public class GameArea extends JPanel {
         g2.drawString(" Space: Block move faster", 610+65, 500);
         g2.drawString(" C: Change Block", 610+65, 520);
 
-        //show GameOVER
-        //Show stats
         g2.setFont(new Font("Survivant", Font.BOLD, 31));
         g2.drawString("Goal: "+GameThread.getGoal(),115,400);
         g2.drawString("Level: "+GameThread.getLevel(),115,400+60);
@@ -80,12 +74,7 @@ public class GameArea extends JPanel {
                 g2.drawRect(Constant.CENTER + x * Constant.GridCellSide, y * Constant.GridCellSide, Constant.GridCellSide, Constant.GridCellSide);
             }
         }
-
-
-
-
         drawBackground(g2);
-//      showNextBlock(g2,64);
         drawBlock(g2);
 
     }
@@ -126,11 +115,6 @@ public class GameArea extends JPanel {
     private void drawGridSquare(Graphics2D g2, BufferedImage image, int x, int y) {
         g2.drawImage(image, x, y, Constant.GridCellSide, Constant.GridCellSide, null);
     }
-
-    private void showfullBlock(Graphics2D g2, BufferedImage image, int x, int y, int width, int height) {
-        g2.drawImage(image, x, y, width, height, null);
-    }
-
     //Tao block aka spawnBlock
     public void spawnBlock(){
         Random random = new Random();

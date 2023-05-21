@@ -106,6 +106,4 @@ public class ResetMouse extends JPanel implements MouseListener, MouseMotionList
             g.drawImage(exitImage, 0, 0, getWidth(), getHeight(), this);
         }
     }
-
-
 }

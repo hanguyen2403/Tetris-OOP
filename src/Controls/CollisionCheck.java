@@ -50,7 +50,6 @@ public class CollisionCheck {
         if (block.getRightEdge() == Constant.MAX_SCREEN_COL) {
             return false;
         }
-//Logic Bug
         int[][] shape = block.getShape();
         int Column = block.getColumn();
         int Row = block.getRow();

@@ -62,9 +62,4 @@ public class NextScence extends JFrame {
         gameArea.requestFocus();
         gameThread.startGame();
     }
-
-
-
-
-
 }
