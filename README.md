@@ -16,8 +16,8 @@ This is our Tetris project for the Object-Oriented Programming course at HCMIU i
 | Order | Name| Student ID| Contribution |
 |--------------|-------|------|-------|
 | 1 | Nguyen Khanh Ha | ITCSIU21004 | 100% |
-| 2 | Huynh Lam Dang Khoa | ITCSIU21138 | 95% |
-| 3 | Nguyen Binh Phuong Huy | ITCSIU21189 | 95%|
+| 2 | Huynh Lam Dang Khoa | ITCSIU21138 | 90% |
+| 3 | Nguyen Binh Phuong Huy | ITCSIU21189 | 90%|
 | 4 | Tran Thanh Nguyen | ITCSIU21093 | 95% |
 
 ### How to run
