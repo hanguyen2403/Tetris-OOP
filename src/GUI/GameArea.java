@@ -1,3 +1,11 @@
+/*Name: Group 17
+  Nguyễn Khánh Hà - ITCSIU21004
+  Huỳnh Lâm Đăng Khoa - ITCSIU21138
+  Nguyễn Bình Phương Huy - ITCSIU21189
+  Trần Thanh Nguyên - ITCSIU21093
+  Purpose: This is a class responsible for taking on roles related to the game area such as spaw blocks, move block to background, hold block and many more*/
+
+
 package GUI;
 
 import javax.imageio.ImageIO;
